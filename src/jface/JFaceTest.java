@@ -4,6 +4,8 @@ import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -12,7 +14,10 @@ import jface.menu.Edit;
 import jface.menu.File;
 import jface.menu.Help;
 import jface.view.ViewTable;
+import jface.windowElements.ButtonLine;
+import jface.windowElements.InputFields;
 import jface.windowElements.MainComposite;
+import jface.windowElements.SWTDoneCheckLine;
 
 public class JFaceTest extends ApplicationWindow {
 
@@ -26,13 +31,17 @@ public class JFaceTest extends ApplicationWindow {
         getShell().setSize(800, 600);
         
         SashForm form = new SashForm(parent,SWT.HORIZONTAL);
-        form.setLayout(new FillLayout());
+        GridData data = new GridData(SWT.FILL, SWT.FILL, false, false);
+
+        form.setLayoutData(data);
+        form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+        form.setLayout(new GridLayout());
         
         ViewTable viewTable = new ViewTable();
         viewTable.createPartControl(form);
 
-        MainComposite child2 = new MainComposite(form,SWT.NONE);
-        child2.setLayout(new FillLayout());
+        Composite child2 = new MainComposite(form,SWT.NONE);
+        getShell().pack();
         return parent;
     }
 
