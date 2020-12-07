@@ -16,13 +16,15 @@ public class MainComposite extends Composite{
         setLayout(new GridLayout(1, false));
         setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-        InputFields inputValues = new InputFields(this, SWT.NONE);
+        InputFields inputValues = new InputFields(this, SWT.FILL);
+        inputValues.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+
+        SWTDoneCheckLine swtDoneCheckLine = new SWTDoneCheckLine(this, SWT.FILL);
+        swtDoneCheckLine.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
 
-        SWTDoneCheckLine buttons = new SWTDoneCheckLine(this, SWT.HORIZONTAL);
-
-
-        ButtonLine results = new ButtonLine(this, SWT.HORIZONTAL);
+        ButtonLine buttonLine = new ButtonLine(this, SWT.FILL);
+        buttonLine.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
         
     }

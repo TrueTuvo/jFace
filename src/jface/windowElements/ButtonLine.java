@@ -12,7 +12,7 @@ public class ButtonLine extends Composite{
     
     public ButtonLine(Composite parent, int style) {
         super(parent, style);
-        setLayout(new GridLayout(4,true));
+        setLayout(new FillLayout());
         newButton = new Button(this, SWT.PUSH);
         newButton.setText("New");
         

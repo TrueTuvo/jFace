@@ -14,8 +14,9 @@ public class SWTDoneCheckLine extends Composite{
         super(parent, style);
         setLayout(new FillLayout(SWT.HORIZONTAL));
         swtDoneLabel = new Label(this, SWT.FILL);
-        swtDoneButton = new Button(this, SWT.CHECK);
+        swtDoneButton = new Button(this, SWT.CHECK|SWT.RIGHT);
         swtDoneLabel.setText("SWT task Done");
+        swtDoneButton.setOrientation(SWT.RIGHT_TO_LEFT);
         
     }
 

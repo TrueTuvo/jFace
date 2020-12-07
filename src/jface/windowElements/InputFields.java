@@ -17,10 +17,14 @@ public class InputFields extends Composite{
         super(parent, style);
         setLayout(new GridLayout(2, true));
         
-       nameLabel = new Label(this,SWT.FILL);  
+       nameLabel = new Label(this,SWT.FILL);
+       nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
        nameTextField = new Text(this,SWT.FILL);
+       nameTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
        groupLabel = new Label(this,SWT.FILL);   
+       groupLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
        groupTextField = new Text(this,SWT.FILL);
+       groupTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
        nameLabel.setText("Name ");
        groupLabel.setText("Group ");
        

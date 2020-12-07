@@ -1,23 +1,21 @@
 package jface;
+
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 
-import jface.menu.Edit;
-import jface.menu.File;
-import jface.menu.Help;
+import jface.menu.About;
+import jface.menu.Exit;
+import jface.menu.New;
+import jface.menu.Save;
 import jface.view.ViewTable;
-import jface.windowElements.ButtonLine;
-import jface.windowElements.InputFields;
 import jface.windowElements.MainComposite;
-import jface.windowElements.SWTDoneCheckLine;
 
 public class JFaceTest extends ApplicationWindow {
 
@@ -44,6 +42,7 @@ public class JFaceTest extends ApplicationWindow {
         getShell().pack();
         return parent;
     }
+    
 
     protected MenuManager createMenuManager() {
         MenuManager mainMenu = new MenuManager();
@@ -52,22 +51,17 @@ public class JFaceTest extends ApplicationWindow {
         MenuManager helpMenu = new MenuManager("Help");
 
 
-        // File popup menu
-        fileMenu.add(new File());
-        fileMenu.add(new Edit());
-        fileMenu.add(new Help());
-
-        // Help popup menu
-
-
+        fileMenu.add(new Exit(this));
+        editMenu.add(new New());
+        editMenu.add(new Save());
+        helpMenu.add(new About());
+        
         mainMenu.add(fileMenu);
         mainMenu.add(editMenu);
         mainMenu.add(helpMenu);
         
-        editMenu.add(new Edit());
         
         
-        helpMenu.add(new Edit());
 
         
 
