@@ -4,6 +4,7 @@ package jface.view;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
@@ -13,11 +14,11 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-
+import org.eclipse.ui.part.ViewPart;
 
 import jface.model.*;
 
-public class ViewTable {
+public class MyTableViewer {
 
     public static final String ID = "www";
 
@@ -43,14 +44,7 @@ public class ViewTable {
         viewer.setInput(ModelProvider.INSTANCE.getPersons());
         // make the selection available to other views
         // Set the sorter for the table
-        viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-            @Override
-            public void selectionChanged(SelectionChangedEvent event) {
-//                IStructuredSelection selection = viewer.getSelection();
-//                Object firstElement = selection.getFirstElement();
-                // do something with it
-            }
-        });
+
         // Layout the viewer
 
         GridData gridData = new GridData();
@@ -120,8 +114,5 @@ public class ViewTable {
     public void setFocus() {
         viewer.getControl().setFocus();
     }
-
-
-
 
 }

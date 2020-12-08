@@ -10,6 +10,22 @@ public class ButtonLine extends Composite{
     
     private final Button newButton, saveButton,deleteButton, cancelButton;
     
+    public Button getNewButton() {
+        return newButton;
+    }
+
+    public Button getSaveButton() {
+        return saveButton;
+    }
+
+    public Button getDeleteButton() {
+        return deleteButton;
+    }
+
+    public Button getCancelButton() {
+        return cancelButton;
+    }
+
     public ButtonLine(Composite parent, int style) {
         super(parent, style);
         setLayout(new FillLayout());

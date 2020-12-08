@@ -1,6 +1,9 @@
 package jface;
 
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -14,7 +17,8 @@ import jface.menu.About;
 import jface.menu.Exit;
 import jface.menu.New;
 import jface.menu.Save;
-import jface.view.ViewTable;
+import jface.model.Person;
+import jface.view.MyTableViewer;
 import jface.windowElements.MainComposite;
 
 public class JFaceTest extends ApplicationWindow {
@@ -35,10 +39,25 @@ public class JFaceTest extends ApplicationWindow {
         form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         form.setLayout(new GridLayout());
         
-        ViewTable viewTable = new ViewTable();
-        viewTable.createPartControl(form);
+        MyTableViewer viewer = new MyTableViewer();
+        
+        viewer.createPartControl(form);
+        MainComposite child2 = new MainComposite(form,SWT.NONE);
+        viewer.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
+            @Override
+            public void selectionChanged(SelectionChangedEvent event) {
+                IStructuredSelection selection = viewer.getViewer().getStructuredSelection();
+                Person selectionPerson = (Person)selection.getFirstElement();
+                child2.getName().setText(selectionPerson.getName());
+                child2.getGroup().setText(String.valueOf(selectionPerson.getGroup()));
 
-        Composite child2 = new MainComposite(form,SWT.NONE);
+                child2.getSwtCheckdone().setSelection(selectionPerson.isSwtDone());
+
+            }
+        });
+       
+        
+        
         getShell().pack();
         return parent;
     }
@@ -59,12 +78,6 @@ public class JFaceTest extends ApplicationWindow {
         mainMenu.add(fileMenu);
         mainMenu.add(editMenu);
         mainMenu.add(helpMenu);
-        
-        
-        
-
-        
-
         return mainMenu;
     }
 
@@ -77,6 +90,5 @@ public class JFaceTest extends ApplicationWindow {
 
 
 
-    
 
 }

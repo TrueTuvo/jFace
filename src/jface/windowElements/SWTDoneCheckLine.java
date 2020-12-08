@@ -10,6 +10,10 @@ public class SWTDoneCheckLine extends Composite{
     private final Label swtDoneLabel;
     private final Button swtDoneButton;
 
+    public Button getSwtDoneButton() {
+        return swtDoneButton;
+    }
+
     public SWTDoneCheckLine(Composite parent, int style) {
         super(parent, style);
         setLayout(new FillLayout(SWT.HORIZONTAL));

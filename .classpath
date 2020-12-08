@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-14">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/SZabara/Downloads/Telegram Desktop/org.eclipse.core.commands_3.9.200.v20180827-1727.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SZabara/Downloads/Telegram Desktop/org.eclipse.equinox.common_3.10.200.v20181021-1645.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SZabara/Desktop/org.eclipse.jface.jar" sourcepath="C:/Users/SZabara/Desktop/org.eclipse.jface.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SZabara/Downloads/Telegram Desktop/org.eclipse.ui.workbench_3.112.100.v20181127-1518.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SZabara/Downloads/Telegram Desktop/org.eclipse.swt.win32.win32.x86_64-4.3.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SZabara/Downloads/jar_files.zip"/>
-	<classpathentry kind="lib" path="C:/Users/SZabara/Downloads/org.eclipse.osgi-3.6.0.v20100517.jar"/>
-	<classpathentry kind="lib" path="C:/Users/SZabara/Desktop/org.eclipse.equinox.supplement-1.9.300.jar"/>
+	<classpathentry kind="lib" path="C:/Users/SZabara/Downloads/org.eclipse.swt.win32.win32.x86_64-3.115.0.jar" sourcepath="C:/Users/SZabara/Downloads/org.eclipse.swt.win32.win32.x86_64-3.115.0.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.core.commands_3.9.700.v20191217-1850.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.equinox.common_3.11.0.v20200206-0817.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.jface_3.19.0.v20200218-1607.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.osgi_3.15.200.v20200214-1600.jar"/>
+	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.ui.workbench_3.118.0.v20200222-0719.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
