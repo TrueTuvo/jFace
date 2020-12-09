@@ -1,28 +1,44 @@
 package jface.model;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+
 public class Person {
     private String name;
     private int group;
     private boolean swtDone;
+    private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
+            this);
     
+    public void addPropertyChangeListener(String propertyName,
+            PropertyChangeListener listener) {
+        propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        propertyChangeSupport.removePropertyChangeListener(listener);
+    }
     
     public String getName() {
         return name;
     }
     public void setName(String name) {
-        this.name = name;
+        propertyChangeSupport.firePropertyChange("name", this.name,
+                this.name = name);
     }
     public int getGroup() {
         return group;
     }
     public void setGroup(int group) {
-        this.group = group;
+        propertyChangeSupport.firePropertyChange("group", this.group,
+                this.group = group);
     }
     public boolean isSwtDone() {
         return swtDone;
     }
     public void setSwtDone(boolean swtDone) {
-        this.swtDone = swtDone;
+        propertyChangeSupport.firePropertyChange("swtDone", this.swtDone,
+                this.swtDone = swtDone);
     }
     public Person(String name, int group, boolean swtDone) {
         super();

@@ -7,6 +7,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
+import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -44,16 +45,20 @@ public class JFaceTest extends ApplicationWindow {
         viewer.createPartControl(form);
         MainComposite child2 = new MainComposite(form,SWT.NONE);
         viewer.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
+            private Person oldPerson = null;
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
-                IStructuredSelection selection = viewer.getViewer().getStructuredSelection();
+                IStructuredSelection selection = event.getStructuredSelection();
                 Person selectionPerson = (Person)selection.getFirstElement();
                 child2.getName().setText(selectionPerson.getName());
                 child2.getGroup().setText(String.valueOf(selectionPerson.getGroup()));
 
                 child2.getSwtCheckdone().setSelection(selectionPerson.isSwtDone());
-
+                oldPerson = selectionPerson;
+                
             }
+        
+       
         });
        
         
