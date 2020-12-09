@@ -8,7 +8,7 @@ import org.eclipse.swt.widgets.Composite;
 
 public class ButtonLine extends Composite{
     
-    private final Button newButton, saveButton,deleteButton, cancelButton;
+    private final Button newButton, saveButton,deleteButton, resetButton;
     
     public Button getNewButton() {
         return newButton;
@@ -22,8 +22,8 @@ public class ButtonLine extends Composite{
         return deleteButton;
     }
 
-    public Button getCancelButton() {
-        return cancelButton;
+    public Button getResetButton() {
+        return resetButton;
     }
 
     public ButtonLine(Composite parent, int style) {
@@ -38,8 +38,8 @@ public class ButtonLine extends Composite{
         deleteButton = new Button(this, SWT.PUSH);
         deleteButton.setText("Delete");
         
-        cancelButton = new Button(this, SWT.PUSH);
-        cancelButton.setText("Cansel");
+        resetButton = new Button(this, SWT.PUSH);
+        resetButton.setText("Reset");
         
     }
     

@@ -2,20 +2,26 @@ package jface.view;
 
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
+import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.ui.part.ViewPart;
 
 import jface.model.*;
+import vogella.jface.tableviewer.edit.GroupEditingSupport;
+import vogella.jface.tableviewer.edit.NameEditingSupport;
+import vogella.jface.tableviewer.edit.SwtDoneEditingSupport;
 
-public class MyTableViewer  {
+public class MyTableViewer{
 
     public static final String ID = "www";
 
@@ -56,33 +62,33 @@ public class MyTableViewer  {
     public TableViewer getViewer() {
         return viewer;
     }
-
+    
     // This will create the columns for the table
     private void createColumns(final Composite parent, final TableViewer viewer) {
-        String[] titles = { "Name", "Group", "SWT Done" };
+        String[] titles = { "Name", "Group", "swtDone" };
         int[] bounds = { 100, 100, 100 };
 
-        // First column is for the name
+        // First column is for the first name
         TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
-        col.setLabelProvider(new ColumnLabelProvider() {
+        col.setLabelProvider(new CellLabelProvider() {
             @Override
-            public String getText(Object element) {
-                Person p = (Person) element;
-                return p.getName();
+            public void update(ViewerCell cell) {
+                cell.setText(((Person) cell.getElement()).getName());
             }
         });
+        col.setEditingSupport(new NameEditingSupport(viewer));
 
         // Second column is for the last name
         col = createTableViewerColumn(titles[1], bounds[1], 1);
-        col.setLabelProvider(new ColumnLabelProvider() {
+        col.setLabelProvider(new CellLabelProvider() {
             @Override
-            public String getText(Object element) {
-                Person p = (Person) element;
-                return String.valueOf(p.getGroup());
+            public void update(ViewerCell cell) {
+                cell.setText(String.valueOf(((Person) cell.getElement()).getGroup()));
             }
         });
+        col.setEditingSupport(new GroupEditingSupport(viewer));
 
-        // now the gender
+
         col = createTableViewerColumn(titles[2], bounds[2], 2);
         col.setLabelProvider(new CheckBoxLabelProvider(viewer) {
             
@@ -91,8 +97,10 @@ public class MyTableViewer  {
                 return ((Person) element).isSwtDone();
             }
         });
+        col.setEditingSupport(new SwtDoneEditingSupport(viewer));
 
     }
+
 
     private TableViewerColumn createTableViewerColumn(String title, int bound, final int colNumber) {
         final TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
@@ -110,6 +118,10 @@ public class MyTableViewer  {
      */
     public void setFocus() {
         viewer.getControl().setFocus();
+    }
+    public void delete() {
+        Person person = (Person)viewer.getStructuredSelection().getFirstElement();
+        viewer.remove(person);
     }
 
 }

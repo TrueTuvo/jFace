@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Text;
 
 public class MainComposite extends Composite{
     private Text name, group;
-    private Button swtCheckdone, newButton, saveButton, deleteButton,cancelButton;
+    private Button swtCheckdone, newButton, saveButton, deleteButton,resetButton;
     
 
 
@@ -49,8 +49,8 @@ public class MainComposite extends Composite{
 
 
 
-    public Button getCancelButton() {
-        return cancelButton;
+    public Button getResetButton() {
+        return resetButton;
     }
 
 
@@ -76,7 +76,7 @@ public class MainComposite extends Composite{
         newButton = buttonLine.getNewButton();
         saveButton = buttonLine.getSaveButton();
         deleteButton = buttonLine.getDeleteButton();
-        cancelButton = buttonLine.getCancelButton();
+        resetButton = buttonLine.getResetButton();
         
     }
     
