@@ -1,6 +1,5 @@
 package jface.view;
 
-
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -12,6 +11,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.part.ViewPart;
@@ -21,7 +21,7 @@ import vogella.jface.tableviewer.edit.GroupEditingSupport;
 import vogella.jface.tableviewer.edit.NameEditingSupport;
 import vogella.jface.tableviewer.edit.SwtDoneEditingSupport;
 
-public class MyTableViewer{
+public class MyTableViewer {
 
     public static final String ID = "www";
 
@@ -62,7 +62,7 @@ public class MyTableViewer{
     public TableViewer getViewer() {
         return viewer;
     }
-    
+
     // This will create the columns for the table
     private void createColumns(final Composite parent, final TableViewer viewer) {
         String[] titles = { "Name", "Group", "swtDone" };
@@ -70,37 +70,31 @@ public class MyTableViewer{
 
         // First column is for the first name
         TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
-        col.setLabelProvider(new CellLabelProvider() {
+        col.setLabelProvider(new ColumnLabelProvider() {
             @Override
-            public void update(ViewerCell cell) {
-                cell.setText(((Person) cell.getElement()).getName());
+            public String getText(Object element) {
+                Person p = (Person) element;
+                return p.getName();
             }
         });
-        col.setEditingSupport(new NameEditingSupport(viewer));
-
         // Second column is for the last name
         col = createTableViewerColumn(titles[1], bounds[1], 1);
-        col.setLabelProvider(new CellLabelProvider() {
+        col.setLabelProvider(new ColumnLabelProvider() {
             @Override
-            public void update(ViewerCell cell) {
-                cell.setText(String.valueOf(((Person) cell.getElement()).getGroup()));
+            public String getText(Object element) {
+                Person p = (Person) element;
+                return String.valueOf(p.getGroup());
             }
         });
-        col.setEditingSupport(new GroupEditingSupport(viewer));
-
 
         col = createTableViewerColumn(titles[2], bounds[2], 2);
         col.setLabelProvider(new CheckBoxLabelProvider(viewer) {
-            
             @Override
             protected boolean isChecked(Object element) {
                 return ((Person) element).isSwtDone();
             }
         });
-        col.setEditingSupport(new SwtDoneEditingSupport(viewer));
-
     }
-
 
     private TableViewerColumn createTableViewerColumn(String title, int bound, final int colNumber) {
         final TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
@@ -119,9 +113,22 @@ public class MyTableViewer{
     public void setFocus() {
         viewer.getControl().setFocus();
     }
-    public void delete() {
-        Person person = (Person)viewer.getStructuredSelection().getFirstElement();
-        viewer.remove(person);
+
+    public void delete(Person person) {
+        if (ModelProvider.INSTANCE.getPersons().contains(person)) {
+            ModelProvider.INSTANCE.getPersons().remove(person);
+            getViewer().refresh();
+        }
+    }
+
+    public void add(Person person) {
+
+        ModelProvider.INSTANCE.getPersons().add(person);
+        getViewer().refresh();
+
+    }
+    public Person getCurrentPerson() {
+        return (Person) getViewer().getStructuredSelection().getFirstElement();
     }
 
 }

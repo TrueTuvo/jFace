@@ -1,21 +1,15 @@
 package jface;
 
-import java.util.Iterator;
-
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-import org.eclipse.swt.events.ModifyListener;
-import org.eclipse.swt.events.SelectionAdapter;
-import org.eclipse.swt.events.SelectionEvent;
+
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
-import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
@@ -27,13 +21,20 @@ import jface.menu.Delete;
 import jface.menu.Exit;
 import jface.menu.New;
 import jface.menu.Save;
+import jface.model.ModelProvider;
 import jface.model.Person;
+import jface.view.DeletePersonDialog;
 import jface.view.MyTableViewer;
+import jface.view.MyTitleAreaDialog;
+import jface.view.NewPersonDialog;
 import jface.windowElements.MainComposite;
 
 public class JFaceTest extends ApplicationWindow {
 
-    private MyTableViewer viewer;
+    private MyTableViewer myTableViewer;
+
+
+    private MainComposite mainComposite;
 
     public JFaceTest() {
         super(null);
@@ -51,43 +52,83 @@ public class JFaceTest extends ApplicationWindow {
         form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         form.setLayout(new GridLayout());
 
-        viewer = new MyTableViewer();
+        myTableViewer = new MyTableViewer();
 
-        viewer.createPartControl(form);
-        MainComposite child2 = new MainComposite(form, SWT.NONE);
-        viewer.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
+        myTableViewer.createPartControl(form);
+        mainComposite = new MainComposite(form, SWT.NONE);
+        myTableViewer.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 IStructuredSelection selection = event.getStructuredSelection();
                 Person selectionPerson = (Person) selection.getFirstElement();
-                if (selectionPerson != null && !child2.getDeleteButton().getSelection()) {
-                child2.getName().setText(selectionPerson.getName());
-                child2.getGroup().setText(String.valueOf(selectionPerson.getGroup()));
+                if (selectionPerson != null && !mainComposite.getDeleteButton().getSelection()) {
+                    mainComposite.getName().setText(selectionPerson.getName());
+                    mainComposite.getGroup().setText(String.valueOf(selectionPerson.getGroup()));
 
-                child2.getSwtCheckdone().setSelection(selectionPerson.isSwtDone());
+                    mainComposite.getSwtCheckdone().setSelection(selectionPerson.isSwtDone());
                 }
             }
         });
-        child2.getDeleteButton().addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                ISelection selection = viewer.getViewer().getSelection();
-                if (selection instanceof IStructuredSelection) {
-                    Iterator iterator = ((IStructuredSelection) selection).iterator();
-                    while (iterator.hasNext()) {
-                        Object obj = iterator.next();
-                        viewer.getViewer().remove(obj);
-                        viewer.getViewer().refresh();
-                        child2.getName().setText("");
-                        child2.getGroup().setText("");
-                        child2.getSwtCheckdone().setSelection(false);
-                        viewer.getViewer().refresh();
+        mainComposite.getDeleteButton().addListener(SWT.Selection, new Listener() {
+            public void handleEvent(Event e) {
+                switch (e.type) {
+                case SWT.Selection:
+                    if (myTableViewer.getViewer().getStructuredSelection() != null) {
+                        new DeletePersonDialog(myTableViewer).open();
+                        break;
                     }
+
                 }
             }
         });
 
-    
+        mainComposite.getNewButton().addListener(SWT.Selection, new Listener() {
+            public void handleEvent(Event e) {
+                switch (e.type) {
+                case SWT.Selection:
+                    new NewPersonDialog(myTableViewer).open();
+                    break;
+                }
+            }
+        });
+
+        mainComposite.getSaveButton().addListener(SWT.Selection, new Listener() {
+            public void handleEvent(Event e) {
+                switch (e.type) {
+                case SWT.Selection:
+                    String name = mainComposite.getName().getText();
+                    int group = Integer.parseInt(mainComposite.getGroup().getText());
+                    boolean swtDone = mainComposite.getSwtCheckdone().getSelection();
+
+                    Person person = myTableViewer.getCurrentPerson();
+                    for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
+                        if (person.equals(person2)) {
+                            person2.setName(name);
+                            person2.setGroup(group);
+                            person2.setSwtDone(swtDone);
+                            myTableViewer.getViewer().refresh();
+
+                        }
+                    }
+                    break;
+                }
+            }
+        });
+        mainComposite.getResetButton().addListener(SWT.Selection, new Listener() {
+            public void handleEvent(Event e) {
+                switch (e.type) {
+                case SWT.Selection: {
+                    Person currentPerson = myTableViewer.getCurrentPerson();
+                    mainComposite.getName().setText(currentPerson.getName());
+                    mainComposite.getGroup().setText(String.valueOf(currentPerson.getGroup()));
+                    mainComposite.getSwtCheckdone().setSelection(currentPerson.isSwtDone());
+                    myTableViewer.getViewer().refresh();
+                    
+                }
+                    break;
+                }
+            }
+        });
 
         getShell().pack();
         return parent;
@@ -100,9 +141,9 @@ public class JFaceTest extends ApplicationWindow {
         MenuManager helpMenu = new MenuManager("Help");
 
         fileMenu.add(new Exit(this));
-        editMenu.add(new New());
-        editMenu.add(new Save());
-        editMenu.add(new Delete(this.viewer));
+        editMenu.add(new New(this));
+        editMenu.add(new Save(this));
+        editMenu.add(new Delete(this));
         helpMenu.add(new About());
 
         mainMenu.add(fileMenu);
@@ -117,5 +158,11 @@ public class JFaceTest extends ApplicationWindow {
         win.open();
         Display.getCurrent().dispose();
     }
+    public MyTableViewer getMyTableViewer() {
+        return myTableViewer;
+    }
 
+    public MainComposite getMainComposite() {
+        return mainComposite;
+    }
 }
