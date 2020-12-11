@@ -2,7 +2,11 @@ package jface.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * 
+ * @author SZabara
+ * model provider basis on the list of persons
+ */
 public enum ModelProvider {
     INSTANCE;
 
@@ -17,7 +21,7 @@ public enum ModelProvider {
         persons.add(new Person("Толик", 2, false));
 
     }
-
+    
     public List<Person> getPersons() {
         return persons;
     }

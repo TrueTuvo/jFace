@@ -1,4 +1,4 @@
-package jface;
+package jfaceApp;
 
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -7,7 +7,6 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.window.ApplicationWindow;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
-
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -16,24 +15,34 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 
-import jface.menu.About;
-import jface.menu.Delete;
-import jface.menu.Exit;
-import jface.menu.New;
-import jface.menu.Save;
+import jface.menu.attachments.About;
+import jface.menu.attachments.Delete;
+import jface.menu.attachments.Exit;
+import jface.menu.attachments.New;
+import jface.menu.attachments.Save;
 import jface.model.ModelProvider;
 import jface.model.Person;
 import jface.view.DeletePersonDialog;
 import jface.view.MyTableViewer;
-import jface.view.MyTitleAreaDialog;
 import jface.view.NewPersonDialog;
-import jface.windowElements.MainComposite;
+import jface.view.composite.attachments.MainComposite;
 
+/**
+ * 
+ * @author SZabara
+ * 
+ *         class for start application
+ */
 public class JFaceTest extends ApplicationWindow {
-
+    /**
+     * user class for control table viewer
+     */
     private MyTableViewer myTableViewer;
 
-
+    /**
+     * Composite in within will be show current selection of the table viewer, as well as buttons for control selected
+     * Person
+     */
     private MainComposite mainComposite;
 
     public JFaceTest() {
@@ -64,11 +73,11 @@ public class JFaceTest extends ApplicationWindow {
                 if (selectionPerson != null && !mainComposite.getDeleteButton().getSelection()) {
                     mainComposite.getName().setText(selectionPerson.getName());
                     mainComposite.getGroup().setText(String.valueOf(selectionPerson.getGroup()));
-
                     mainComposite.getSwtCheckdone().setSelection(selectionPerson.isSwtDone());
                 }
             }
         });
+
         mainComposite.getDeleteButton().addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
                 switch (e.type) {
@@ -77,7 +86,6 @@ public class JFaceTest extends ApplicationWindow {
                         new DeletePersonDialog(myTableViewer).open();
                         break;
                     }
-
                 }
             }
         });
@@ -99,7 +107,6 @@ public class JFaceTest extends ApplicationWindow {
                     String name = mainComposite.getName().getText();
                     int group = Integer.parseInt(mainComposite.getGroup().getText());
                     boolean swtDone = mainComposite.getSwtCheckdone().getSelection();
-
                     Person person = myTableViewer.getCurrentPerson();
                     for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
                         if (person.equals(person2)) {
@@ -107,13 +114,13 @@ public class JFaceTest extends ApplicationWindow {
                             person2.setGroup(group);
                             person2.setSwtDone(swtDone);
                             myTableViewer.getViewer().refresh();
-
                         }
                     }
                     break;
                 }
             }
         });
+
         mainComposite.getResetButton().addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
                 switch (e.type) {
@@ -123,7 +130,6 @@ public class JFaceTest extends ApplicationWindow {
                     mainComposite.getGroup().setText(String.valueOf(currentPerson.getGroup()));
                     mainComposite.getSwtCheckdone().setSelection(currentPerson.isSwtDone());
                     myTableViewer.getViewer().refresh();
-                    
                 }
                     break;
                 }
@@ -158,6 +164,7 @@ public class JFaceTest extends ApplicationWindow {
         win.open();
         Display.getCurrent().dispose();
     }
+
     public MyTableViewer getMyTableViewer() {
         return myTableViewer;
     }

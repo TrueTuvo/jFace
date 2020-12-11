@@ -1,11 +1,9 @@
-package jface.menu;
+package jface.menu.attachments;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.window.ApplicationWindow;
 
-import jface.JFaceTest;
 import jface.view.DeletePersonDialog;
-import jface.view.MyTableViewer;
+import jfaceApp.JFaceTest;
 
 public class Delete extends Action {
     private JFaceTest app;

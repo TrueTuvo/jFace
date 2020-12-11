@@ -2,7 +2,11 @@ package jface.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-
+/**
+ * 
+ * @author SZabara
+ *  The main model class
+ */
 public class Person {
     private String name;
     private int group;

@@ -1,4 +1,4 @@
-package jface.windowElements;
+package jface.view.composite.attachments;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -7,53 +7,44 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
-public class MainComposite extends Composite{
+/**
+ * @author SZabara
+ * 
+ *         {@summary Consist of the three composites : InputFields, ButtonLine and SWTButtonCheckLine, provides access
+ *         to the important elements}
+ * 
+ */
+public class MainComposite extends Composite {
     private Text name, group;
-    private Button swtCheckdone, newButton, saveButton, deleteButton,resetButton;
-    
-
+    private Button swtCheckdone, newButton, saveButton, deleteButton, resetButton;
 
     public Text getName() {
         return name;
     }
 
-
-
     public Text getGroup() {
         return group;
     }
-
-
 
     public Button getSwtCheckdone() {
         return swtCheckdone;
     }
 
-
-
     public Button getNewButton() {
         return newButton;
     }
-
-
 
     public Button getSaveButton() {
         return saveButton;
     }
 
-
-
     public Button getDeleteButton() {
         return deleteButton;
     }
 
-
-
     public Button getResetButton() {
         return resetButton;
     }
-
-
 
     public MainComposite(Composite parent, int style) {
         super(parent, style);
@@ -66,10 +57,9 @@ public class MainComposite extends Composite{
         SWTDoneCheckLine swtDoneCheckLine = new SWTDoneCheckLine(this, SWT.FILL);
         swtDoneCheckLine.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-
         ButtonLine buttonLine = new ButtonLine(this, SWT.FILL);
         buttonLine.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
-        
+
         name = inputValues.getNameTextField();
         group = inputValues.getGroupTextField();
         swtCheckdone = swtDoneCheckLine.getSwtDoneButton();
@@ -77,9 +67,5 @@ public class MainComposite extends Composite{
         saveButton = buttonLine.getSaveButton();
         deleteButton = buttonLine.getDeleteButton();
         resetButton = buttonLine.getResetButton();
-        
     }
-    
-   
-
 }

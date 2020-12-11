@@ -1,6 +1,5 @@
 package jface.view;
 
-
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
@@ -13,6 +12,10 @@ import org.eclipse.swt.widgets.Shell;
 
 import jface.model.Person;
 
+/**
+ * 
+ * @author SZabara Every time, when user try to delete person, must confirm action in dialog window
+ */
 public class DeletePersonDialog extends Dialog {
 
     MyTableViewer myTableViewer;
@@ -25,9 +28,10 @@ public class DeletePersonDialog extends Dialog {
     @Override
     protected Control createDialogArea(Composite parent) {
         Composite container = (Composite) super.createDialogArea(parent);
-        Label label = new Label(container,SWT.FILL);
+        Label label = new Label(container, SWT.FILL);
         label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-        label.setText(String.format("Do you really want to delete %s  person?", myTableViewer.getCurrentPerson().getName()));
+        label.setText(
+                String.format("Do you really want to delete %s  person?", myTableViewer.getCurrentPerson().getName()));
 
         return container;
     }
@@ -38,7 +42,7 @@ public class DeletePersonDialog extends Dialog {
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
         newShell.setText("Delete Person");
-        
+
     }
 
     @Override

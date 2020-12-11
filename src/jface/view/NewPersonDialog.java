@@ -1,24 +1,24 @@
 package jface.view;
 
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
-
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 
 import jface.model.Person;
-import jface.windowElements.InputFields;
-import jface.windowElements.SWTDoneCheckLine;
+import jface.view.composite.attachments.InputFields;
+import jface.view.composite.attachments.SWTDoneCheckLine;
 
+/**
+ * 
+ * @author SZabara {@summary Every time, when user try to add new person, must fill empty fields confirm action in
+ *         dialog window}
+ */
 public class NewPersonDialog extends Dialog {
-
-    MyTableViewer myTableViewer;
+    private MyTableViewer myTableViewer;
     private InputFields inputFields;
     private SWTDoneCheckLine swtDoneCheckLine;
 

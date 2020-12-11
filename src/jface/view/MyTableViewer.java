@@ -1,32 +1,31 @@
 package jface.view;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.CellLabelProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
-
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
-import org.eclipse.jface.viewers.ViewerCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.ui.part.ViewPart;
 
-import jface.model.*;
-import vogella.jface.tableviewer.edit.GroupEditingSupport;
-import vogella.jface.tableviewer.edit.NameEditingSupport;
-import vogella.jface.tableviewer.edit.SwtDoneEditingSupport;
+import jface.model.CheckBoxLabelProvider;
+import jface.model.ModelProvider;
+import jface.model.Person;
 
+/**
+ * 
+ * @author SZabara
+ *
+ *         This class need for customize and control of table viewer
+ */
 public class MyTableViewer {
 
     public static final String ID = "www";
 
     private TableViewer viewer;
-    // We use icons
 
     public void createPartControl(Composite parent) {
         GridLayout layout = new GridLayout(2, false);
@@ -68,7 +67,7 @@ public class MyTableViewer {
         String[] titles = { "Name", "Group", "swtDone" };
         int[] bounds = { 100, 100, 100 };
 
-        // First column is for the first name
+        // First column is for the name
         TableViewerColumn col = createTableViewerColumn(titles[0], bounds[0], 0);
         col.setLabelProvider(new ColumnLabelProvider() {
             @Override
@@ -77,7 +76,7 @@ public class MyTableViewer {
                 return p.getName();
             }
         });
-        // Second column is for the last name
+        // Second column is for the group
         col = createTableViewerColumn(titles[1], bounds[1], 1);
         col.setLabelProvider(new ColumnLabelProvider() {
             @Override
@@ -86,7 +85,7 @@ public class MyTableViewer {
                 return String.valueOf(p.getGroup());
             }
         });
-
+        // Third column is for the swtDone
         col = createTableViewerColumn(titles[2], bounds[2], 2);
         col.setLabelProvider(new CheckBoxLabelProvider(viewer) {
             @Override
@@ -127,6 +126,7 @@ public class MyTableViewer {
         getViewer().refresh();
 
     }
+
     public Person getCurrentPerson() {
         return (Person) getViewer().getStructuredSelection().getFirstElement();
     }

@@ -1,29 +1,32 @@
-package jface.menu;
+package jface.menu.attachments;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-
-
-public class About extends Action{  
+public class About extends Action {
     public About() {
         super("About", AS_PUSH_BUTTON);
     }
+
     public void run() {
         Display display = Display.getCurrent();
         Shell shell = new Shell(display);
+        shell.setText("About");
         Rectangle screenSize = display.getPrimaryMonitor().getBounds();
-        shell.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true));
-        shell.setLayout(new GridLayout(1, false));
-        System.out.println();
-        Label label = new Label(shell, SWT.NONE);
-        label.setText("additional information");
+        shell.setLayoutData(new GridData(SWT.CENTER, SWT.FILL, true, true));
+        shell.setLayout(new FillLayout(SWT.VERTICAL));
+        Label label = new Label(shell, SWT.CENTER);
+        label.setText("SWT/Jface application for emulation work with users list");
+        label = new Label(shell, SWT.CENTER);
+        label.setText("Author SZabara");
+        label = new Label(shell, SWT.CENTER);
+        label.setText("with the support of Pavel Podgorniy");
         shell.pack();
         shell.setLocation((screenSize.width - shell.getBounds().width) / 2,
                 (screenSize.height - shell.getBounds().height) / 2);
@@ -34,7 +37,6 @@ public class About extends Action{
                 display.sleep();
             }
         }
-        
-        
+
     }
 }

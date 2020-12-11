@@ -1,9 +1,9 @@
-package jface.menu;
+package jface.menu.attachments;
 
 import org.eclipse.jface.action.Action;
 
-import jface.JFaceTest;
 import jface.view.NewPersonDialog;
+import jfaceApp.JFaceTest;
 
 public class New  extends Action{
     private JFaceTest app;

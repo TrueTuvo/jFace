@@ -1,4 +1,4 @@
-package jface.menu;
+package jface.menu.attachments;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.window.ApplicationWindow;

@@ -3,7 +3,11 @@ package jface.model;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
 
-
+/**
+ * 
+ * @author SZabara
+ *  this class will be use, if we wil be need some sorting in the table.
+ */
 public class PersonFilter extends ViewerFilter {
 
     private String searchString;

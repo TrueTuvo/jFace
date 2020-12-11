@@ -1,9 +1,10 @@
-package jface.menu;
+package jface.menu.attachments;
 
 import org.eclipse.jface.action.Action;
-import jface.JFaceTest;
+
 import jface.model.ModelProvider;
 import jface.model.Person;
+import jfaceApp.JFaceTest;
 
 public class Save extends Action {
     private JFaceTest app;
