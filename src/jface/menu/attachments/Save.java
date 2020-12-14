@@ -14,19 +14,25 @@ public class Save extends Action {
         this.app = app;
     }
     public void run() {
-        String name = app.getMainComposite().getName().getText();
-        int group = Integer.parseInt(app.getMainComposite().getGroup().getText());
-        boolean swtDone = app.getMainComposite().getSwtCheckdone().getSelection();
+        try {
+            String name = app.getMainComposite().getName().getText();
+            int group = Integer.parseInt(app.getMainComposite().getGroup().getText());
+            boolean swtDone = app.getMainComposite().getSwtCheckdone().getSelection();
+            if (app.getInputFields().isValidData(name, group)) {
+                Person person = app.getMyTableViewer().getCurrentPerson();
+                for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
+                    if (person.equals(person2)) {
+                        person2.setName(name);
+                        person2.setGroup(group);
+                        person2.setSwtDone(swtDone);
+                        app.getMyTableViewer().getViewer().refresh();
 
-        Person person = app.getMyTableViewer().getCurrentPerson();
-        for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
-            if (person.equals(person2)) {
-                person2.setName(name);
-                person2.setGroup(group);
-                person2.setSwtDone(swtDone);
-                app.getMyTableViewer().getViewer().refresh();
-
+                    }
+                }
             }
+            
+        } catch (Exception e) {
+            // TODO: handle exception
         }
     }
 }

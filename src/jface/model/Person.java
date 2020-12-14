@@ -2,12 +2,17 @@ package jface.model;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.io.Serializable;
 /**
  * 
  * @author SZabara
  *  The main model class
  */
-public class Person {
+public class Person implements Serializable{
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
     private String name;
     private int group;
     private boolean swtDone;

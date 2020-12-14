@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
+import jface.model.DataManager;
 import jface.model.Person;
 import jface.view.composite.attachments.InputFields;
 import jface.view.composite.attachments.SWTDoneCheckLine;
@@ -29,6 +30,7 @@ public class NewPersonDialog extends Dialog {
 
     @Override
     protected Control createDialogArea(Composite parent) {
+       
         Composite container = (Composite) super.createDialogArea(parent);
         inputFields = new InputFields(container, SWT.NONE);
         swtDoneCheckLine = new SWTDoneCheckLine(container, SWT.NONE);
@@ -46,11 +48,22 @@ public class NewPersonDialog extends Dialog {
 
     @Override
     protected void okPressed() {
-        Person person = new Person(inputFields.getNameTextField().getText(),
-                Integer.parseInt(inputFields.getGroupTextField().getText()),
-                swtDoneCheckLine.getSwtDoneButton().getSelection());
-        myTableViewer.add(person);
-        super.okPressed();
+        try {
+            String name = inputFields.getNameTextField().getText();
+            int group = Integer.parseInt(inputFields.getGroupTextField().getText());
+                if (inputFields.isValidData(name, group)) {               
+                Person person = new Person(inputFields.getNameTextField().getText(),
+                        Integer.parseInt(inputFields.getGroupTextField().getText()),
+                        swtDoneCheckLine.getSwtDoneButton().getSelection());
+                myTableViewer.add(person);
+                super.okPressed();
+                DataManager.writeObjectToFile(person);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
     @Override

@@ -17,6 +17,11 @@ import org.eclipse.swt.widgets.Text;
 public class MainComposite extends Composite {
     private Text name, group;
     private Button swtCheckdone, newButton, saveButton, deleteButton, resetButton;
+    private InputFields inputValues;
+
+    public InputFields getInputValues() {
+        return inputValues;
+    }
 
     public Text getName() {
         return name;
@@ -51,7 +56,7 @@ public class MainComposite extends Composite {
         setLayout(new GridLayout(1, false));
         setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-        InputFields inputValues = new InputFields(this, SWT.FILL);
+        inputValues = new InputFields(this, SWT.FILL);
         inputValues.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
         SWTDoneCheckLine swtDoneCheckLine = new SWTDoneCheckLine(this, SWT.FILL);

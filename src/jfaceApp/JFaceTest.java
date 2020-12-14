@@ -25,6 +25,7 @@ import jface.model.Person;
 import jface.view.DeletePersonDialog;
 import jface.view.MyTableViewer;
 import jface.view.NewPersonDialog;
+import jface.view.composite.attachments.InputFields;
 import jface.view.composite.attachments.MainComposite;
 
 /**
@@ -34,6 +35,13 @@ import jface.view.composite.attachments.MainComposite;
  *         class for start application
  */
 public class JFaceTest extends ApplicationWindow {
+
+    private InputFields inputFields;
+
+    public InputFields getInputFields() {
+        return inputFields;
+    }
+
     /**
      * user class for control table viewer
      */
@@ -65,6 +73,7 @@ public class JFaceTest extends ApplicationWindow {
 
         myTableViewer.createPartControl(form);
         mainComposite = new MainComposite(form, SWT.NONE);
+        inputFields = mainComposite.getInputValues();
         myTableViewer.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
@@ -80,58 +89,77 @@ public class JFaceTest extends ApplicationWindow {
 
         mainComposite.getDeleteButton().addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
-                switch (e.type) {
-                case SWT.Selection:
-                    if (myTableViewer.getViewer().getStructuredSelection() != null) {
-                        new DeletePersonDialog(myTableViewer).open();
-                        break;
+                try {
+                    switch (e.type) {
+                    case SWT.Selection:
+                        if (myTableViewer.getViewer().getStructuredSelection() != null) {
+                            new DeletePersonDialog(myTableViewer).open();
+                            break;
+                        }
                     }
+                } catch (Exception e2) {
+                    // TODO: handle exception
                 }
             }
         });
 
         mainComposite.getNewButton().addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
-                switch (e.type) {
-                case SWT.Selection:
-                    new NewPersonDialog(myTableViewer).open();
-                    break;
+                try {
+                    switch (e.type) {
+                    case SWT.Selection:
+                        new NewPersonDialog(myTableViewer).open();
+                        break;
+                    }
+                } catch (Exception e2) {
+                    // TODO: handle exception
                 }
             }
         });
 
         mainComposite.getSaveButton().addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
-                switch (e.type) {
-                case SWT.Selection:
-                    String name = mainComposite.getName().getText();
-                    int group = Integer.parseInt(mainComposite.getGroup().getText());
-                    boolean swtDone = mainComposite.getSwtCheckdone().getSelection();
-                    Person person = myTableViewer.getCurrentPerson();
-                    for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
-                        if (person.equals(person2)) {
-                            person2.setName(name);
-                            person2.setGroup(group);
-                            person2.setSwtDone(swtDone);
-                            myTableViewer.getViewer().refresh();
+                try {
+                    switch (e.type) {
+                    case SWT.Selection:
+                        String name = mainComposite.getName().getText();
+                        int group = Integer.parseInt(mainComposite.getGroup().getText());
+                        if (inputFields.isValidData(name, group)) {
+                            boolean swtDone = mainComposite.getSwtCheckdone().getSelection();
+                            Person person = myTableViewer.getCurrentPerson();
+                            for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
+                                if (person.equals(person2)) {
+                                    person2.setName(name);
+                                    person2.setGroup(group);
+                                    person2.setSwtDone(swtDone);
+                                    myTableViewer.getViewer().refresh();
+                                }
+                            }
+                            break;
                         }
                     }
-                    break;
+                } catch (Exception e2) {
+                    
                 }
+
             }
         });
 
         mainComposite.getResetButton().addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
-                switch (e.type) {
-                case SWT.Selection: {
-                    Person currentPerson = myTableViewer.getCurrentPerson();
-                    mainComposite.getName().setText(currentPerson.getName());
-                    mainComposite.getGroup().setText(String.valueOf(currentPerson.getGroup()));
-                    mainComposite.getSwtCheckdone().setSelection(currentPerson.isSwtDone());
-                    myTableViewer.getViewer().refresh();
-                }
-                    break;
+                try {
+                    switch (e.type) {
+                    case SWT.Selection: {
+                        Person currentPerson = myTableViewer.getCurrentPerson();
+                        mainComposite.getName().setText(currentPerson.getName());
+                        mainComposite.getGroup().setText(String.valueOf(currentPerson.getGroup()));
+                        mainComposite.getSwtCheckdone().setSelection(currentPerson.isSwtDone());
+                        myTableViewer.getViewer().refresh();
+                    }
+                        break;
+                    }
+                } catch (Exception e2) {
+                    // TODO: handle exception
                 }
             }
         });
