@@ -3,12 +3,12 @@ package jface.menu.attachments;
 import org.eclipse.jface.action.Action;
 
 import jface.view.DeletePersonDialog;
-import jfaceApp.JFaceTest;
+import jfaceApp.UserManagerApp;
 
 public class Delete extends Action {
-    private JFaceTest app;
+    private UserManagerApp app;
 
-    public Delete(JFaceTest app) {
+    public Delete(UserManagerApp app) {
         super("Delete", AS_PUSH_BUTTON);
         this.app = app;
     }

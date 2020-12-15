@@ -10,41 +10,40 @@ import org.eclipse.swt.widgets.Composite;
  * @author SZabara {@summary composite, what will be added for operations over person}
  *
  */
-public class ButtonLine extends Composite {
+public class ManageButton extends Composite {
 
-    private final Button newButton, saveButton, deleteButton, resetButton;
+    private final Button newPersonButton, savePersonButton, deletePersonButton, resetPersonButton;
 
-    public Button getNewButton() {
-        return newButton;
+    public Button getNewPersonButton() {
+        return newPersonButton;
     }
 
-    public Button getSaveButton() {
-        return saveButton;
+    public Button getSavePersonButton() {
+        return savePersonButton;
     }
 
-    public Button getDeleteButton() {
-        return deleteButton;
+    public Button getDeletePersonButton() {
+        return deletePersonButton;
     }
 
-    public Button getResetButton() {
-        return resetButton;
+    public Button getResetPersonButton() {
+        return resetPersonButton;
     }
 
-    public ButtonLine(Composite parent, int style) {
+    public ManageButton(Composite parent, int style) {
         super(parent, style);
         setLayout(new FillLayout());
-        newButton = new Button(this, SWT.PUSH);
-        newButton.setText("New");
+        newPersonButton = new Button(this, SWT.PUSH);
+        newPersonButton.setText("New");
 
-        saveButton = new Button(this, SWT.PUSH);
-        saveButton.setText("Save");
+        savePersonButton = new Button(this, SWT.PUSH);
+        savePersonButton.setText("Save");
 
-        deleteButton = new Button(this, SWT.PUSH);
-        deleteButton.setText("Delete");
+        deletePersonButton = new Button(this, SWT.PUSH);
+        deletePersonButton.setText("Delete");
 
-        resetButton = new Button(this, SWT.PUSH);
-        resetButton.setText("Reset");
+        resetPersonButton = new Button(this, SWT.PUSH);
+        resetPersonButton.setText("Reset");
 
     }
-
 }

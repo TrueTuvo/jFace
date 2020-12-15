@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileWriter;
 
 import org.eclipse.jface.action.MenuManager;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -28,29 +27,22 @@ import jface.menu.attachments.Save;
 import jface.model.ModelProvider;
 import jface.model.Person;
 import jface.view.DeletePersonDialog;
-import jface.view.MyTableViewer;
-import jface.view.NewPersonDialog;
-import jface.view.composite.attachments.InputFields;
+import jface.view.TableViewerAdapter;
+import jface.view.CreateNewPersonDialog;
 import jface.view.composite.attachments.MainComposite;
 
-/** 
+/**
  * 
  * @author SZabara
  * 
- *         class for start application
+ *         Class for start application
  */
-public class JFaceTest extends ApplicationWindow {
-
-    private InputFields inputFields;
-
-    public InputFields getInputFields() {
-        return inputFields;
-    }
+public class UserManagerApp extends ApplicationWindow {
 
     /**
-     * user class for control table viewer
+     * User's class for control table viewer
      */
-    private MyTableViewer myTableViewer;
+    private TableViewerAdapter tableViewerAdapter;
 
     /**
      * Composite in within will be show current selection of the table viewer, as well as buttons for control selected
@@ -58,7 +50,7 @@ public class JFaceTest extends ApplicationWindow {
      */
     private MainComposite mainComposite;
 
-    public JFaceTest() {
+    public UserManagerApp() {
         super(null);
         addMenuBar();
     }
@@ -74,19 +66,18 @@ public class JFaceTest extends ApplicationWindow {
         form.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
         form.setLayout(new GridLayout());
 
-        myTableViewer = new MyTableViewer();
+        tableViewerAdapter = new TableViewerAdapter();
 
-        myTableViewer.createPartControl(form);
+        tableViewerAdapter.createPartControl(form);
         mainComposite = new MainComposite(form, SWT.NONE);
-        inputFields = mainComposite.getInputValues();
-        myTableViewer.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
+        tableViewerAdapter.getViewer().addSelectionChangedListener(new ISelectionChangedListener() {
             @Override
             public void selectionChanged(SelectionChangedEvent event) {
                 IStructuredSelection selection = event.getStructuredSelection();
                 Person selectionPerson = (Person) selection.getFirstElement();
                 if (selectionPerson != null && !mainComposite.getDeleteButton().getSelection()) {
-                    mainComposite.getName().setText(selectionPerson.getName());
-                    mainComposite.getGroup().setText(String.valueOf(selectionPerson.getGroup()));
+                    mainComposite.getNameTextField().setText(selectionPerson.getName());
+                    mainComposite.getGroupTextField().setText(String.valueOf(selectionPerson.getGroup()));
                     mainComposite.getSwtCheckdone().setSelection(selectionPerson.isSwtDone());
                 }
             }
@@ -97,10 +88,10 @@ public class JFaceTest extends ApplicationWindow {
                 try {
                     switch (e.type) {
                     case SWT.Selection:
-                        if (myTableViewer.getViewer().getStructuredSelection() != null) {
-                            new DeletePersonDialog(myTableViewer).open();
-                            inputFields.getNameTextField().setText("");
-                            inputFields.getGroupTextField().setText("");
+                        if (tableViewerAdapter.getViewer().getStructuredSelection() != null) {
+                            new DeletePersonDialog(tableViewerAdapter).open();
+                            mainComposite.getNameTextField().setText("");
+                            mainComposite.getGroupTextField().setText("");
                             mainComposite.getSwtCheckdone().setSelection(false);
 
                             break;
@@ -117,7 +108,7 @@ public class JFaceTest extends ApplicationWindow {
                 try {
                     switch (e.type) {
                     case SWT.Selection:
-                        new NewPersonDialog(myTableViewer).open();
+                        new CreateNewPersonDialog(tableViewerAdapter).open();
                         break;
                     }
                 } catch (Exception e2) {
@@ -131,24 +122,24 @@ public class JFaceTest extends ApplicationWindow {
                 try {
                     switch (e.type) {
                     case SWT.Selection:
-                        String name = mainComposite.getName().getText();
-                        int group = Integer.parseInt(mainComposite.getGroup().getText());
-                        if (inputFields.isValidData(name, group)) {
+                        String name = mainComposite.getNameTextField().getText();
+                        int group = Integer.parseInt(mainComposite.getGroupTextField().getText());
+                        if (mainComposite.isValidData(name, group)) {
                             boolean swtDone = mainComposite.getSwtCheckdone().getSelection();
-                            Person person = myTableViewer.getCurrentPerson();
+                            Person person = tableViewerAdapter.getCurrentPerson();
                             for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
                                 if (person.equals(person2)) {
                                     person2.setName(name);
                                     person2.setGroup(group);
                                     person2.setSwtDone(swtDone);
-                                    myTableViewer.getViewer().refresh();
+                                    tableViewerAdapter.getViewer().refresh();
                                 }
                             }
                             break;
                         }
                     }
                 } catch (Exception e2) {
-                    
+
                 }
 
             }
@@ -159,11 +150,11 @@ public class JFaceTest extends ApplicationWindow {
                 try {
                     switch (e.type) {
                     case SWT.Selection: {
-                        Person currentPerson = myTableViewer.getCurrentPerson();
-                        mainComposite.getName().setText(currentPerson.getName());
-                        mainComposite.getGroup().setText(String.valueOf(currentPerson.getGroup()));
+                        Person currentPerson = tableViewerAdapter.getCurrentPerson();
+                        mainComposite.getNameTextField().setText(currentPerson.getName());
+                        mainComposite.getGroupTextField().setText(String.valueOf(currentPerson.getGroup()));
                         mainComposite.getSwtCheckdone().setSelection(currentPerson.isSwtDone());
-                        myTableViewer.getViewer().refresh();
+                        tableViewerAdapter.getViewer().refresh();
                     }
                         break;
                     }
@@ -185,35 +176,21 @@ public class JFaceTest extends ApplicationWindow {
 
         fileMenu.add(new Exit(this));
         editMenu.add(new New(this));
-        editMenu.add(new Save(this));
+        editMenu.add(new Save(this, mainComposite));
         editMenu.add(new Delete(this));
         helpMenu.add(new About());
 
         mainMenu.add(fileMenu);
         mainMenu.add(editMenu);
         mainMenu.add(helpMenu);
+
         return mainMenu;
-    }
-
-    public static void main(String[] args) {
-        JFaceTest win = new JFaceTest();
-        win.setBlockOnOpen(true);
-        win.open();
-        Display.getCurrent().dispose();
-    }
-
-    public MyTableViewer getMyTableViewer() {
-        return myTableViewer;
-    }
-
-    public MainComposite getMainComposite() {
-        return mainComposite;
     }
 
     @Override
     public boolean close() {
         try {
-            FileWriter tfw = new FileWriter(new File("database.txt").getAbsoluteFile()); 
+            FileWriter tfw = new FileWriter(new File("database.txt").getAbsoluteFile());
             BufferedWriter tbw = new BufferedWriter(tfw);
             for (Person person : ModelProvider.INSTANCE.getPersons()) {
                 tbw.write(person.getName() + "," + person.getGroup() + "," + person.isSwtDone());
@@ -221,13 +198,24 @@ public class JFaceTest extends ApplicationWindow {
                 tbw.flush();
             }
             tbw.close();
-  
-            
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return super.close();
     }
-    
+
+    public TableViewerAdapter getMyTableViewer() {
+        return tableViewerAdapter;
+    }
+
+    public MainComposite getMainComposite() {
+        return mainComposite;
+    }
+
+    public static void main(String[] args) {
+        UserManagerApp win = new UserManagerApp();
+        win.setBlockOnOpen(true);
+        win.open();
+        Display.getCurrent().dispose();
+    }
 }

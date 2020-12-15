@@ -8,9 +8,9 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import jface.model.DataManager;
 import jface.model.Person;
 import jface.view.composite.attachments.InputFields;
+import jface.view.composite.attachments.MainComposite;
 import jface.view.composite.attachments.SWTDoneCheckLine;
 
 /**
@@ -18,12 +18,12 @@ import jface.view.composite.attachments.SWTDoneCheckLine;
  * @author SZabara {@summary Every time, when user try to add new person, must fill empty fields confirm action in
  *         dialog window}
  */
-public class NewPersonDialog extends Dialog {
-    private MyTableViewer myTableViewer;
+public class CreateNewPersonDialog extends Dialog {
+    private TableViewerAdapter myTableViewer;
     private InputFields inputFields;
     private SWTDoneCheckLine swtDoneCheckLine;
 
-    public NewPersonDialog(MyTableViewer tableViewer) {
+    public CreateNewPersonDialog(TableViewerAdapter tableViewer) {
         super(Display.getCurrent().getActiveShell());
         this.myTableViewer = tableViewer;
     }
@@ -51,23 +51,20 @@ public class NewPersonDialog extends Dialog {
         try {
             String name = inputFields.getNameTextField().getText();
             int group = Integer.parseInt(inputFields.getGroupTextField().getText());
-                if (inputFields.isValidData(name, group)) {               
+                if (MainComposite.isValidData(name, group)) {               
                 Person person = new Person(inputFields.getNameTextField().getText(),
                         Integer.parseInt(inputFields.getGroupTextField().getText()),
                         swtDoneCheckLine.getSwtDoneButton().getSelection());
                 myTableViewer.add(person);
                 super.okPressed();
-                
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        
+        }     
     }
 
     @Override
     protected Point getInitialSize() {
         return new Point(450, 300);
     }
-
 }

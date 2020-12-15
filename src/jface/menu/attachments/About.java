@@ -37,6 +37,5 @@ public class About extends Action {
                 display.sleep();
             }
         }
-
     }
 }

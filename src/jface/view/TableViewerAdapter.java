@@ -12,7 +12,6 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 import jface.model.CheckBoxLabelProvider;
-import jface.model.DataManager;
 import jface.model.ModelProvider;
 import jface.model.Person;
 
@@ -22,7 +21,7 @@ import jface.model.Person;
  *
  *         This class need for customize and control of table viewer
  */
-public class MyTableViewer {
+public class TableViewerAdapter {
 
     public static final String ID = "www";
 
@@ -104,7 +103,6 @@ public class MyTableViewer {
         column.setResizable(true);
         column.setMoveable(true);
         return viewerColumn;
-
     }
 
     /**
@@ -122,14 +120,11 @@ public class MyTableViewer {
     }
 
     public void add(Person person) {
-
         ModelProvider.INSTANCE.getPersons().add(person);
         getViewer().refresh();
-
     }
 
     public Person getCurrentPerson() {
         return (Person) getViewer().getStructuredSelection().getFirstElement();
     }
-
 }

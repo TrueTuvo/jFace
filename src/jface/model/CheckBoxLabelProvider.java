@@ -27,6 +27,7 @@ public abstract class CheckBoxLabelProvider extends OwnerDrawLabelProvider {
     private static final String UNCHECK_KEY = "UNCHECKED";
 
     private Image image;
+
     /**
      * 
      * @param viewer need for getting current shell, that will be use for make shot
@@ -38,10 +39,11 @@ public abstract class CheckBoxLabelProvider extends OwnerDrawLabelProvider {
             JFaceResources.getImageRegistry().put(CHECKED_KEY, makeShot(shell, true));
         }
     }
+
     /**
      * 
-     * @param shell need for create new window only with one check button 
-     * @param type  need for defenition checked/unchecked state
+     * @param shell need for create new window only with one check button
+     * @param type need for defenition checked/unchecked state
      * @return image of checked/unchecked buttons state
      */
     private Image makeShot(Shell shell, boolean type) {
@@ -63,6 +65,7 @@ public abstract class CheckBoxLabelProvider extends OwnerDrawLabelProvider {
 
         return image;
     }
+
     /**
      * create image depends on return of #isCheched
      */
@@ -70,7 +73,7 @@ public abstract class CheckBoxLabelProvider extends OwnerDrawLabelProvider {
         return JFaceResources.getImageRegistry().getDescriptor(isChecked(element) ? CHECKED_KEY : UNCHECK_KEY)
                 .createImage();
     }
-    
+
     @Override
     protected void paint(Event event, Object element) {
 

@@ -7,31 +7,18 @@ import java.io.Serializable;
  * @author SZabara The main model class
  */
 public class Person implements Serializable {
-    /**
-     * 
-     */
+
     private static final long serialVersionUID = 1L;
+
     private String name;
     private int group;
     private boolean swtDone;
-    // private PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(
-    // this);
-
-    // public void addPropertyChangeListener(String propertyName,
-    // PropertyChangeListener listener) {
-    // propertyChangeSupport.addPropertyChangeListener(propertyName, listener);
-    // }
-
-    // public void removePropertyChangeListener(PropertyChangeListener listener) {
-    // propertyChangeSupport.removePropertyChangeListener(listener);
-    // }
 
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
-        // propertyChangeSupport.firePropertyChange("name", this.name,
         this.name = name;
     }
 
@@ -40,7 +27,6 @@ public class Person implements Serializable {
     }
 
     public void setGroup(int group) {
-        // propertyChangeSupport.firePropertyChange("group", this.group,
         this.group = group;
     }
 
@@ -49,7 +35,6 @@ public class Person implements Serializable {
     }
 
     public void setSwtDone(boolean swtDone) {
-        // propertyChangeSupport.firePropertyChange("swtDone", this.swtDone,
         this.swtDone = swtDone;
     }
 

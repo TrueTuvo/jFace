@@ -18,9 +18,9 @@ import jface.model.Person;
  */
 public class DeletePersonDialog extends Dialog {
 
-    MyTableViewer myTableViewer;
+    private final TableViewerAdapter myTableViewer;
 
-    public DeletePersonDialog(MyTableViewer tableViewer) {
+    public DeletePersonDialog(TableViewerAdapter tableViewer) {
         super(Display.getCurrent().getActiveShell());
         this.myTableViewer = tableViewer;
     }

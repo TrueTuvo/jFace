@@ -2,17 +2,18 @@ package jface.menu.attachments;
 
 import org.eclipse.jface.action.Action;
 
-import jface.view.NewPersonDialog;
-import jfaceApp.JFaceTest;
+import jface.view.CreateNewPersonDialog;
+import jfaceApp.UserManagerApp;
 
-public class New  extends Action{
-    private JFaceTest app;
+public class New extends Action {
+    private UserManagerApp app;
 
-    public New(JFaceTest app) {
+    public New(UserManagerApp app) {
         super("New", AS_PUSH_BUTTON);
         this.app = app;
     }
+
     public void run() {
-        new NewPersonDialog(app.getMyTableViewer()).open();
+        new CreateNewPersonDialog(app.getMyTableViewer()).open();
     }
 }

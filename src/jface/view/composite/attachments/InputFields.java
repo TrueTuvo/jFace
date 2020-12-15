@@ -9,25 +9,23 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
-
 /**
  * 
  * @author SZabara {@summary this composite responsible input data }
  */
 public class InputFields extends Composite {
-    private final Label nameLabel, groupLabel;
     private final Text nameTextField, groupTextField;
 
     public InputFields(Composite parent, int style) {
         super(parent, style);
         setLayout(new GridLayout(2, true));
 
-        nameLabel = new Label(this, SWT.FILL);
+        Label nameLabel = new Label(this, SWT.FILL);
         nameLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         nameTextField = new Text(this, SWT.FILL);
         nameTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         nameTextField.setToolTipText("Input cannot be empty");
-        groupLabel = new Label(this, SWT.FILL);
+        Label groupLabel = new Label(this, SWT.FILL);
         groupLabel.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
         groupTextField = new Text(this, SWT.FILL);
         groupTextField.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
@@ -42,7 +40,7 @@ public class InputFields extends Composite {
             @Override
             public void verifyText(VerifyEvent e) {
                 String oldS = ((Text) e.widget).getText();
-                String newS =  oldS.substring(0, e.start) + e.text + oldS.substring(e.end);
+                String newS = oldS.substring(0, e.start) + e.text + oldS.substring(e.end);
                 if (isName(newS)) {
                     e.doit = true;
                 } else {
@@ -56,16 +54,14 @@ public class InputFields extends Composite {
             @Override
             public void verifyText(VerifyEvent e) {
                 String oldS = ((Text) e.widget).getText();
-                String newS =  oldS.substring(0, e.start) + e.text + oldS.substring(e.end);
+                String newS = oldS.substring(0, e.start) + e.text + oldS.substring(e.end);
                 if (newS.matches("[0-9]{1,2}") || newS.matches("")) {
                     e.doit = true;
                 } else {
                     e.doit = false;
                 }
-
             }
         });
-
     }
 
     public Text getGroupTextField() {
@@ -75,17 +71,9 @@ public class InputFields extends Composite {
     public Text getNameTextField() {
         return nameTextField;
     }
-    
-    private boolean isName(String str) {
-        
-        return  str.length()<100;
-    }
-    
-    public boolean isValidData(String name, int group) {
-        if (name == null || name.equals("") || group == 0) {           
-            return false;
-        }
-        return true;
-    }
 
+    private boolean isName(String str) {
+
+        return str.length() < 100;
+    }
 }
