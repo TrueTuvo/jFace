@@ -57,8 +57,7 @@ public class NewPersonDialog extends Dialog {
                         swtDoneCheckLine.getSwtDoneButton().getSelection());
                 myTableViewer.add(person);
                 super.okPressed();
-                DataManager.writeObjectToFile(person);
-
+                
             }
         } catch (Exception e) {
             e.printStackTrace();

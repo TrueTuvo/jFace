@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
 import jface.model.CheckBoxLabelProvider;
+import jface.model.DataManager;
 import jface.model.ModelProvider;
 import jface.model.Person;
 

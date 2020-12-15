@@ -1,6 +1,11 @@
 package jfaceApp;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -28,7 +33,7 @@ import jface.view.NewPersonDialog;
 import jface.view.composite.attachments.InputFields;
 import jface.view.composite.attachments.MainComposite;
 
-/**
+/** 
  * 
  * @author SZabara
  * 
@@ -94,6 +99,10 @@ public class JFaceTest extends ApplicationWindow {
                     case SWT.Selection:
                         if (myTableViewer.getViewer().getStructuredSelection() != null) {
                             new DeletePersonDialog(myTableViewer).open();
+                            inputFields.getNameTextField().setText("");
+                            inputFields.getGroupTextField().setText("");
+                            mainComposite.getSwtCheckdone().setSelection(false);
+
                             break;
                         }
                     }
@@ -200,4 +209,25 @@ public class JFaceTest extends ApplicationWindow {
     public MainComposite getMainComposite() {
         return mainComposite;
     }
+
+    @Override
+    public boolean close() {
+        try {
+            FileWriter tfw = new FileWriter(new File("database.txt").getAbsoluteFile()); 
+            BufferedWriter tbw = new BufferedWriter(tfw);
+            for (Person person : ModelProvider.INSTANCE.getPersons()) {
+                tbw.write(person.getName() + "," + person.getGroup() + "," + person.isSwtDone());
+                tbw.newLine();
+                tbw.flush();
+            }
+            tbw.close();
+  
+            
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return super.close();
+    }
+    
 }
