@@ -124,7 +124,7 @@ public class UserManagerApp extends ApplicationWindow {
                     case SWT.Selection:
                         String name = mainComposite.getNameTextField().getText();
                         int group = Integer.parseInt(mainComposite.getGroupTextField().getText());
-                        if (mainComposite.isValidData(name, group)) {
+                        if (MainComposite.isValidData(name, group)) {
                             boolean swtDone = mainComposite.getSwtCheckdone().getSelection();
                             Person person = tableViewerAdapter.getCurrentPerson();
                             for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
@@ -141,7 +141,6 @@ public class UserManagerApp extends ApplicationWindow {
                 } catch (Exception e2) {
 
                 }
-
             }
         });
 
