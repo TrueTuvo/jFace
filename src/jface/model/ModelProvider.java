@@ -36,7 +36,7 @@ public enum ModelProvider {
                 persons.add(person);
             }
         } catch (Exception ex) {
-            ex.printStackTrace();
+
         }
         return persons;
     }

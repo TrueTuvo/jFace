@@ -196,6 +196,7 @@ public class UserManagerApp extends ApplicationWindow {
                 tbw.newLine();
                 tbw.flush();
             }
+            
             tbw.close();
         } catch (Exception ex) {
             ex.printStackTrace();

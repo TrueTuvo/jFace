@@ -59,7 +59,7 @@ public class CreateNewPersonDialog extends Dialog {
                 super.okPressed();
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }     
     }
 
