@@ -1,6 +1,8 @@
 package com.jface.zabara.menu.attachments;
 
 import org.eclipse.jface.action.Action;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Display;
 
 import com.jface.zabara.app.UserManagerApp;
 import com.jface.zabara.app.Utils;
@@ -17,20 +19,25 @@ public class SavePersonAction extends Action {
 
     public void run() {
 
-        String name = app.getMainComposite().getNameTextField().getText();
-        int group = Integer.parseInt(app.getMainComposite().getGroupTextField().getText());
-        boolean swtDone = app.getMainComposite().getSwtCheckdone().getSelection();
-        if (Utils.isValidData(name, group)) {
-            Person person = app.getTableViewerAdapter().getCurrentPerson();
-            for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
-                if (person.equals(person2)) {
-                    person2.setName(name);
-                    person2.setGroup(group);
-                    person2.setSwtDone(swtDone);
-                    app.getTableViewerAdapter().getViewer().refresh();
+        try {
+            String name = app.getMainComposite().getNameTextField().getText();
+            int group = Integer.parseInt(app.getMainComposite().getGroupTextField().getText());
+            boolean swtDone = app.getMainComposite().getSwtCheckdone().getSelection();
 
+            if (Utils.isValidData(name, group)) {
+                Person selectionPerson = app.getTableViewerAdapter().getCurrentPerson();
+                for (Person availablePerson : ModelProvider.INSTANCE.getPersons()) {
+                    if (selectionPerson.equals(availablePerson)) {
+                        Utils.updatePersonData(availablePerson, name, group, swtDone);
+                        app.getTableViewerAdapter().getViewer().refresh();
+                    }
                 }
+            } else {
+                throw new NumberFormatException();
             }
+        } catch (NumberFormatException exception) {
+            MessageDialog.openInformation(Display.getCurrent().getActiveShell(), "Incoorect input",
+                    "Your input was incorrect. Please, put the correct data");
         }
     }
 }

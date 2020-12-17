@@ -110,7 +110,7 @@ public class UserManagerApp extends ApplicationWindow {
 
                 switch (e.type) {
                 case SWT.Selection:
-
+                       try {
                     String name = mainComposite.getNameTextField().getText();
                     int group = Integer.parseInt(mainComposite.getGroupTextField().getText());
                     boolean swtDone = mainComposite.getSwtCheckdone().getSelection();
@@ -124,7 +124,11 @@ public class UserManagerApp extends ApplicationWindow {
                             }
                         }
                         break;
-                    } else {
+                    }
+                    else {
+                        throw new NumberFormatException();
+                    }
+                       }catch(NumberFormatException exception) {
                         MessageDialog.openInformation(Display.getCurrent().getActiveShell(), "Incoorect input",
                                 "Your input was incorrect. Please, put the correct data");
                     }
