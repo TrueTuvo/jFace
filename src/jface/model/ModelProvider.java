@@ -1,7 +1,9 @@
 package jface.model;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,14 @@ public enum ModelProvider {
     private List<Person> readPersonsFromFile() {
 
         List<Person> persons = new ArrayList<Person>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filepath))) {
+        File file = new File(filepath);
+        if(!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+            }
+        }
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
             while (br.ready()) {
                 String text = br.readLine();
