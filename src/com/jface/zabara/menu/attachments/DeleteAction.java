@@ -1,21 +1,21 @@
-package jface.menu.attachments;
+package com.jface.zabara.menu.attachments;
 
 import org.eclipse.jface.action.Action;
 
-import jface.view.DeletePersonDialog;
-import jfaceApp.UserManagerApp;
+import com.jface.zabara.app.UserManagerApp;
+import com.jface.zabara.view.DeletePersonDialog;
 
-public class Delete extends Action {
+public class DeleteAction extends Action {
     private UserManagerApp app;
 
-    public Delete(UserManagerApp app) {
+    public DeleteAction(UserManagerApp app) {
         super("Delete", AS_PUSH_BUTTON);
         this.app = app;
     }
 
     public void run() {
-        if (app.getMyTableViewer().getViewer().getStructuredSelection() != null) {
-            new DeletePersonDialog(app.getMyTableViewer()).open();
+        if (app.getTableViewerAdapter().getCurrentPerson() != null) {
+            new DeletePersonDialog(app.getTableViewerAdapter()).open();
         }
     }
 }

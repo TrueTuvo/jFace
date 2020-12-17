@@ -1,11 +1,14 @@
-package jface.model;
+package com.jface.zabara.model;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.jface.zabara.app.Utils;
 
 /**
  * 
@@ -15,8 +18,6 @@ public enum ModelProvider {
     INSTANCE;
 
     private List<Person> persons;
-
-    private static final String filepath = "database.txt";
 
     private ModelProvider() {
         persons = readPersonsFromFile();
@@ -29,11 +30,12 @@ public enum ModelProvider {
     private List<Person> readPersonsFromFile() {
 
         List<Person> persons = new ArrayList<Person>();
-        File file = new File(filepath);
-        if(!file.exists()) {
+        File file = new File(Utils.FILE_PATH);
+        if (!file.exists()) {
             try {
                 file.createNewFile();
             } catch (IOException e) {
+                System.err.println("Failed to create the DATABASE file");
             }
         }
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -44,8 +46,10 @@ public enum ModelProvider {
                 Person person = new Person(parts[0], Integer.parseInt(parts[1]), Boolean.parseBoolean(parts[2]));
                 persons.add(person);
             }
-        } catch (Exception ex) {
-
+        } catch (FileNotFoundException exception) {
+            System.err.println("Сould not find the DATABASE file");
+        } catch (IOException e) {
+            System.err.println("Сould not read the DATABASE file");
         }
         return persons;
     }

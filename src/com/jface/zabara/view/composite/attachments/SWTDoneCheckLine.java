@@ -1,4 +1,4 @@
-package jface.view.composite.attachments;
+package com.jface.zabara.view.composite.attachments;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -7,10 +7,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 /**
+ * Part of MainComposite. Responsible for show  SWTDone flag
  * 
  * @author SZabara
  * 
- *         {@summary part of MainComposite. Responsible for show  SWTDone flag. }
  *
  */
 public class SWTDoneCheckLine extends Composite {

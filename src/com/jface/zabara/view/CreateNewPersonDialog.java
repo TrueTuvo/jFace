@@ -1,6 +1,7 @@
-package jface.view;
+package com.jface.zabara.view;
 
 import org.eclipse.jface.dialogs.Dialog;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.widgets.Composite;
@@ -8,10 +9,10 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
-import jface.model.Person;
-import jface.view.composite.attachments.InputFields;
-import jface.view.composite.attachments.MainComposite;
-import jface.view.composite.attachments.SWTDoneCheckLine;
+import com.jface.zabara.app.Utils;
+import com.jface.zabara.model.Person;
+import com.jface.zabara.view.composite.attachments.InputFields;
+import com.jface.zabara.view.composite.attachments.SWTDoneCheckLine;
 
 /**
  * 
@@ -48,19 +49,23 @@ public class CreateNewPersonDialog extends Dialog {
 
     @Override
     protected void okPressed() {
-        try {
-            String name = inputFields.getNameTextField().getText();
-            int group = Integer.parseInt(inputFields.getGroupTextField().getText());
-                if (MainComposite.isValidData(name, group)) {               
-                Person person = new Person(inputFields.getNameTextField().getText(),
-                        Integer.parseInt(inputFields.getGroupTextField().getText()),
-                        swtDoneCheckLine.getSwtDoneButton().getSelection());
-                myTableViewer.add(person);
-                super.okPressed();
+           try {
+               String name = inputFields.getNameTextField().getText();
+               int group = Integer.parseInt(inputFields.getGroupTextField().getText());
+               boolean swtDone = swtDoneCheckLine.getSwtDoneButton().getSelection();
+               if (Utils.isValidData(name, group)) {               
+                   Person person = new Person(name, group, swtDone);
+                   myTableViewer.add(person);
+                   super.okPressed();
+                   
+               }
+               else {
+                throw new NumberFormatException();
             }
-        } catch (Exception e) {
-
-        }     
+        } catch (NumberFormatException e) {
+            MessageDialog.openInformation(Display.getCurrent().getActiveShell(), "Incoorect input", "Your input was empty. Please, put the correct data");
+        }
+               
     }
 
     @Override

@@ -1,12 +1,12 @@
-package jface.menu.attachments;
+package com.jface.zabara.menu.attachments;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.window.ApplicationWindow;
 
-public class Exit extends Action {
+public class ExitAction extends Action {
     private ApplicationWindow win;
 
-    public Exit(ApplicationWindow aWin) {
+    public ExitAction(ApplicationWindow aWin) {
         super("Exit", AS_PUSH_BUTTON);
         this.win = aWin;
     }

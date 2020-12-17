@@ -1,4 +1,4 @@
-package jface.menu.attachments;
+package com.jface.zabara.menu.attachments;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.swt.SWT;
@@ -9,8 +9,8 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-public class About extends Action {
-    public About() {
+public class AboutAction extends Action {
+    public AboutAction() {
         super("About", AS_PUSH_BUTTON);
     }
 

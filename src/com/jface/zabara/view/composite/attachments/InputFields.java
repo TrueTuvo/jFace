@@ -1,4 +1,4 @@
-package jface.view.composite.attachments;
+package com.jface.zabara.view.composite.attachments;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.VerifyEvent;
@@ -9,9 +9,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 
+import com.jface.zabara.app.Utils;
+
 /**
+ * This composite responsible input data
  * 
- * @author SZabara {@summary this composite responsible input data }
+ * @author SZabara 
  */
 public class InputFields extends Composite {
     private final Text nameTextField, groupTextField;
@@ -41,7 +44,7 @@ public class InputFields extends Composite {
             public void verifyText(VerifyEvent e) {
                 String oldS = ((Text) e.widget).getText();
                 String newS = oldS.substring(0, e.start) + e.text + oldS.substring(e.end);
-                if (isName(newS)) {
+                if (Utils.isName(newS)) {
                     e.doit = true;
                 } else {
                     e.doit = false;
@@ -72,8 +75,4 @@ public class InputFields extends Composite {
         return nameTextField;
     }
 
-    private boolean isName(String str) {
-
-        return str.length() < 100;
-    }
 }

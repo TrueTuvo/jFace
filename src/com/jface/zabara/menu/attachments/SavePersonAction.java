@@ -1,41 +1,36 @@
-package jface.menu.attachments;
+package com.jface.zabara.menu.attachments;
 
 import org.eclipse.jface.action.Action;
 
-import jface.model.ModelProvider;
-import jface.model.Person;
-import jface.view.composite.attachments.MainComposite;
-import jfaceApp.UserManagerApp;
+import com.jface.zabara.app.UserManagerApp;
+import com.jface.zabara.app.Utils;
+import com.jface.zabara.model.ModelProvider;
+import com.jface.zabara.model.Person;
 
-public class Save extends Action {
+public class SavePersonAction extends Action {
     private final UserManagerApp app;
-    private final MainComposite mainComposite;
 
-    public Save(UserManagerApp app, MainComposite mainComposite) {
+    public SavePersonAction(UserManagerApp app) {
         super("Save", AS_PUSH_BUTTON);
         this.app = app;
-        this.mainComposite = mainComposite;
     }
 
     public void run() {
-        try {
-            String name = app.getMainComposite().getNameTextField().getText();
-            int group = Integer.parseInt(app.getMainComposite().getGroupTextField().getText());
-            boolean swtDone = app.getMainComposite().getSwtCheckdone().getSelection();
-            if (mainComposite.isValidData(name, group)) {
-                Person person = app.getMyTableViewer().getCurrentPerson();
-                for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
-                    if (person.equals(person2)) {
-                        person2.setName(name);
-                        person2.setGroup(group);
-                        person2.setSwtDone(swtDone);
-                        app.getMyTableViewer().getViewer().refresh();
 
-                    }
+        String name = app.getMainComposite().getNameTextField().getText();
+        int group = Integer.parseInt(app.getMainComposite().getGroupTextField().getText());
+        boolean swtDone = app.getMainComposite().getSwtCheckdone().getSelection();
+        if (Utils.isValidData(name, group)) {
+            Person person = app.getTableViewerAdapter().getCurrentPerson();
+            for (Person person2 : ModelProvider.INSTANCE.getPersons()) {
+                if (person.equals(person2)) {
+                    person2.setName(name);
+                    person2.setGroup(group);
+                    person2.setSwtDone(swtDone);
+                    app.getTableViewerAdapter().getViewer().refresh();
+
                 }
             }
-
-        } catch (Exception e) {
         }
     }
 }

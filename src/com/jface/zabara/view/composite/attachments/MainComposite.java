@@ -1,4 +1,4 @@
-package jface.view.composite.attachments;
+package com.jface.zabara.view.composite.attachments;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
@@ -8,10 +8,11 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
 
 /**
+ * 
+ * Consist of the three composites : InputFields, ButtonLine and SWTButtonCheckLine, provides access
+ *         to the important elements
  * @author SZabara
  * 
- *         {@summary Consist of the three composites : InputFields, ButtonLine and SWTButtonCheckLine, provides access
- *         to the important elements}
  * 
  */
 public class MainComposite extends Composite {
@@ -29,7 +30,7 @@ public class MainComposite extends Composite {
         SWTDoneCheckLine swtDoneCheckLine = new SWTDoneCheckLine(this, SWT.FILL);
         swtDoneCheckLine.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
-        ManageButton buttonLine = new ManageButton(this, SWT.FILL);
+        ManageButtons buttonLine = new ManageButtons(this, SWT.FILL);
         buttonLine.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
         nameTextField = inputValues.getNameTextField();
@@ -67,17 +68,5 @@ public class MainComposite extends Composite {
 
     public Button getResetButton() {
         return resetButton;
-    }
-    /**
-     * 
-     * @param name can not be empty or equals null
-     * @param group can not equals zero
-     * @return if all conditions was kept, return true 
-     */
-    public static boolean isValidData(String name, int group) {
-        if (name == null || name.equals("") || group == 0) {           
-            return false;
-        }
-        return true;
     }
 }

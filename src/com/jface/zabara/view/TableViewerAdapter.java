@@ -1,4 +1,4 @@
-package jface.view;
+package com.jface.zabara.view;
 
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
@@ -11,20 +11,19 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 
-import jface.model.CheckBoxLabelProvider;
-import jface.model.ModelProvider;
-import jface.model.Person;
+import com.jface.zabara.model.CheckBoxLabelProvider;
+import com.jface.zabara.model.ModelProvider;
+import com.jface.zabara.model.Person;
 
 /**
- * 
+ * This class need for customize and control of table viewer
  * @author SZabara
  *
- *         This class need for customize and control of table viewer
  */
 public class TableViewerAdapter {
 
     public static final String ID = "www";
-
+    
     private TableViewer viewer;
 
     public void createPartControl(Composite parent) {
@@ -41,11 +40,8 @@ public class TableViewerAdapter {
         table.setLinesVisible(true);
 
         viewer.setContentProvider(new ArrayContentProvider());
-        // Get the content for the viewer, setInput will call getElements in the
-        // contentProvider
+
         viewer.setInput(ModelProvider.INSTANCE.getPersons());
-        // make the selection available to other views
-        // Set the sorter for the table
 
         // Layout the viewer
 

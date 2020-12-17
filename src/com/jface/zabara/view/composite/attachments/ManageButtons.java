@@ -1,4 +1,4 @@
-package jface.view.composite.attachments;
+package com.jface.zabara.view.composite.attachments;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.FillLayout;
@@ -6,11 +6,12 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 
 /**
+ * Composite, what will be added for operations over person
  * 
- * @author SZabara {@summary composite, what will be added for operations over person}
+ * @author SZabara
  *
  */
-public class ManageButton extends Composite {
+public class ManageButtons extends Composite {
 
     private final Button newPersonButton, savePersonButton, deletePersonButton, resetPersonButton;
 
@@ -30,7 +31,7 @@ public class ManageButton extends Composite {
         return resetPersonButton;
     }
 
-    public ManageButton(Composite parent, int style) {
+    public ManageButtons(Composite parent, int style) {
         super(parent, style);
         setLayout(new FillLayout());
         newPersonButton = new Button(this, SWT.PUSH);
@@ -44,6 +45,5 @@ public class ManageButton extends Composite {
 
         resetPersonButton = new Button(this, SWT.PUSH);
         resetPersonButton.setText("Reset");
-
     }
 }

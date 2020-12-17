@@ -1,4 +1,4 @@
-package jface.view;
+package com.jface.zabara.view;
 
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.SWT;
@@ -10,7 +10,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
-import jface.model.Person;
+import com.jface.zabara.model.Person;
 
 /**
  * 
@@ -18,22 +18,24 @@ import jface.model.Person;
  */
 public class DeletePersonDialog extends Dialog {
 
-    private final TableViewerAdapter myTableViewer;
+    private final TableViewerAdapter tableViewerAdapter;
 
     public DeletePersonDialog(TableViewerAdapter tableViewer) {
         super(Display.getCurrent().getActiveShell());
-        this.myTableViewer = tableViewer;
+        this.tableViewerAdapter = tableViewer;
     }
 
     @Override
     protected Control createDialogArea(Composite parent) {
-        Composite container = (Composite) super.createDialogArea(parent);
-        Label label = new Label(container, SWT.FILL);
-        label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
-        label.setText(
-                String.format("Do you really want to delete %s  person?", myTableViewer.getCurrentPerson().getName()));
 
-        return container;
+           Composite container = (Composite) super.createDialogArea(parent);
+           Label label = new Label(container, SWT.FILL);
+           label.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+           label.setText(
+                   String.format("Do you really want to delete %s person?", tableViewerAdapter.getCurrentPerson().getName()));
+
+           return container;
+
     }
 
     // overriding this methods allows you to set the
@@ -47,8 +49,8 @@ public class DeletePersonDialog extends Dialog {
 
     @Override
     protected void okPressed() {
-        Person person = (Person) myTableViewer.getViewer().getStructuredSelection().getFirstElement();
-        myTableViewer.delete(person);
+        Person person = (Person) tableViewerAdapter.getViewer().getStructuredSelection().getFirstElement();
+        tableViewerAdapter.delete(person);
         super.okPressed();
     }
 

@@ -1,19 +1,19 @@
-package jface.menu.attachments;
+package com.jface.zabara.menu.attachments;
 
 import org.eclipse.jface.action.Action;
 
-import jface.view.CreateNewPersonDialog;
-import jfaceApp.UserManagerApp;
+import com.jface.zabara.app.UserManagerApp;
+import com.jface.zabara.view.CreateNewPersonDialog;
 
-public class New extends Action {
+public class CreateNewPersonAction extends Action {
     private UserManagerApp app;
 
-    public New(UserManagerApp app) {
+    public CreateNewPersonAction(UserManagerApp app) {
         super("New", AS_PUSH_BUTTON);
         this.app = app;
     }
 
     public void run() {
-        new CreateNewPersonDialog(app.getMyTableViewer()).open();
+        new CreateNewPersonDialog(app.getTableViewerAdapter()).open();
     }
 }

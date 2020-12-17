@@ -1,4 +1,4 @@
-package jface.model;
+package com.jface.zabara.model;
 
 import org.eclipse.jface.resource.JFaceResources;
 import org.eclipse.jface.viewers.ColumnViewer;
@@ -43,7 +43,7 @@ public abstract class CheckBoxLabelProvider extends OwnerDrawLabelProvider {
     /**
      * 
      * @param shell need for create new window only with one check button
-     * @param type need for defenition checked/unchecked state
+     * @param type need for definition checked/unchecked state
      * @return image of checked/unchecked buttons state
      */
     private Image makeShot(Shell shell, boolean type) {
@@ -67,7 +67,7 @@ public abstract class CheckBoxLabelProvider extends OwnerDrawLabelProvider {
     }
 
     /**
-     * create image depends on return of #isCheched
+     * Create image depends on return of #isCheched
      */
     public Image getImage(Object element) {
         return JFaceResources.getImageRegistry().getDescriptor(isChecked(element) ? CHECKED_KEY : UNCHECK_KEY)
