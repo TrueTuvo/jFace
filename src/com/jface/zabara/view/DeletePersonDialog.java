@@ -14,7 +14,9 @@ import com.jface.zabara.model.Person;
 
 /**
  * 
- * @author SZabara Every time, when user try to delete person, must confirm action in dialog window
+ * Every time, when user try to delete person, must confirm action in dialog window
+ * 
+ * @author SZabara
  */
 public class DeletePersonDialog extends Dialog {
 
@@ -38,8 +40,6 @@ public class DeletePersonDialog extends Dialog {
 
     }
 
-    // overriding this methods allows you to set the
-    // title of the custom dialog
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);

@@ -14,10 +14,13 @@ import com.jface.zabara.app.Utils;
 /**
  * This composite responsible input data
  * 
- * @author SZabara 
+ * @author SZabara
  */
 public class InputFields extends Composite {
-    private final Text nameTextField, groupTextField;
+
+    private final Text nameTextField;
+
+    private final Text groupTextField;
 
     public InputFields(Composite parent, int style) {
         super(parent, style);
@@ -67,10 +70,20 @@ public class InputFields extends Composite {
         });
     }
 
+    /**
+     * returns groupTextField of this object
+     * 
+     * @return groupTextField
+     */
     public Text getGroupTextField() {
         return groupTextField;
     }
 
+    /**
+     * returns nameTextField of this object
+     * 
+     * @return nameTextField
+     */
     public Text getNameTextField() {
         return nameTextField;
     }

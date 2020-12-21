@@ -17,21 +17,32 @@ import com.jface.zabara.model.Person;
 
 /**
  * This class need for customize and control of table viewer
+ * 
  * @author SZabara
  *
  */
 public class TableViewerAdapter {
 
     public static final String ID = "www";
-    
+
     private TableViewer viewer;
 
+    /**
+     * Shapes the composite and add TableViewer's object to the composite.
+     * 
+     * @param parent Parent composite of TableViewer
+     */
     public void createPartControl(Composite parent) {
         GridLayout layout = new GridLayout(2, false);
         parent.setLayout(layout);
         createViewer(parent);
     }
 
+    /**
+     * Creates and shapes the TableViewer's object.
+     * 
+     * @param parent Parent composite of TableViewer
+     */
     private void createViewer(Composite parent) {
         viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.BORDER);
         createColumns(parent, viewer);
@@ -54,11 +65,21 @@ public class TableViewerAdapter {
         viewer.getControl().setLayoutData(gridData);
     }
 
+    /**
+     * returns viewer of this object
+     * 
+     * @return viewer of this object
+     */
     public TableViewer getViewer() {
         return viewer;
     }
 
-    // This will create the columns for the table
+    /**
+     * This will create the columns for the table
+     * 
+     * @param parent Parent composite of TableViewer
+     * @param viewer current TableViewer's object
+     */
     private void createColumns(final Composite parent, final TableViewer viewer) {
         String[] titles = { "Name", "Group", "swtDone" };
         int[] bounds = { 100, 100, 100 };
@@ -91,6 +112,14 @@ public class TableViewerAdapter {
         });
     }
 
+    /**
+     * Create a new column for TableViewer object
+     * 
+     * @param title column's name
+     * @param bound column's size
+     * @param colNumber column's count number
+     * @return done column
+     */
     private TableViewerColumn createTableViewerColumn(String title, int bound, final int colNumber) {
         final TableViewerColumn viewerColumn = new TableViewerColumn(viewer, SWT.NONE);
         final TableColumn column = viewerColumn.getColumn();
@@ -108,6 +137,11 @@ public class TableViewerAdapter {
         viewer.getControl().setFocus();
     }
 
+    /**
+     * removes person from the Model Provider and refresh viewer
+     * 
+     * @param person object for removing
+     */
     public void delete(Person person) {
         if (ModelProvider.INSTANCE.getPersons().contains(person)) {
             ModelProvider.INSTANCE.getPersons().remove(person);
@@ -115,11 +149,21 @@ public class TableViewerAdapter {
         }
     }
 
+    /**
+     * adds person to the Model Provider and refresh viewer
+     * 
+     * @param person object for adding
+     */
     public void add(Person person) {
         ModelProvider.INSTANCE.getPersons().add(person);
         getViewer().refresh();
     }
 
+    /**
+     * returns selected person in Table Viewer
+     * 
+     * @return selected person in Table Viewer
+     */
     public Person getCurrentPerson() {
         return (Person) getViewer().getStructuredSelection().getFirstElement();
     }

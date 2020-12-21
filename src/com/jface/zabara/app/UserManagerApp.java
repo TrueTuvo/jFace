@@ -55,11 +55,13 @@ public class UserManagerApp extends ApplicationWindow {
         super(null);
         addMenuBar();
     }
+
     /**
-     * Creates a window, that separates to 2 part, first part includes only TabLeViewer, second part include 3 composites. After layOut, occur adding Listeners.
+     * Creates a window, that separates to 2 part, first part includes only TabLeViewer, second part include 3
+     * composites. After layOut, occur adding Listeners.
      */
     public Control createContents(Composite parent) {
-        getShell().setText("JFace menu demo");
+        getShell().setText("Person manager");
         getShell().setSize(800, 600);
 
         SashForm form = new SashForm(parent, SWT.HORIZONTAL);
@@ -84,12 +86,10 @@ public class UserManagerApp extends ApplicationWindow {
 
         mainComposite.getDeleteButton().addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
-                switch (e.type) {
-                case SWT.Selection:
+                if (e.type == SWT.Selection) {
                     if (getTableViewerAdapter().getCurrentPerson() != null) {
                         new DeletePersonDialog(tableViewerAdapter).open();
                         Utils.putEmptyPersonData(mainComposite);
-                        break;
                     }
                 }
             }
@@ -97,10 +97,8 @@ public class UserManagerApp extends ApplicationWindow {
 
         mainComposite.getNewButton().addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
-                switch (e.type) {
-                case SWT.Selection:
+                if (e.type == SWT.Selection) {
                     new CreateNewPersonDialog(tableViewerAdapter).open();
-                    break;
                 }
             }
         });
@@ -108,29 +106,31 @@ public class UserManagerApp extends ApplicationWindow {
         mainComposite.getSaveButton().addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
 
-                switch (e.type) {
-                case SWT.Selection:
-                       try {
-                    String name = mainComposite.getNameTextField().getText();
-                    int group = Integer.parseInt(mainComposite.getGroupTextField().getText());
-                    boolean swtDone = mainComposite.getSwtCheckdone().getSelection();
-
-                    if (Utils.isValidData(name, group)) {
-                        Person selectionPerson = tableViewerAdapter.getCurrentPerson();
-                        for (Person availablePerson : ModelProvider.INSTANCE.getPersons()) {
-                            if (selectionPerson.equals(availablePerson)) {
-                                Utils.updatePersonData(availablePerson, name, group, swtDone);
-                                tableViewerAdapter.getViewer().refresh();
-                            }
-                        }
-                        break;
-                    }
-                    else {
-                        throw new NumberFormatException();
-                    }
-                       }catch(NumberFormatException exception) {
+                String name = null;
+                int group = 0;
+                boolean swtDone = false;
+                if (e.type == SWT.Selection) {
+                    try {
+                        name = mainComposite.getNameTextField().getText();
+                        group = Integer.parseInt(mainComposite.getGroupTextField().getText());
+                        swtDone = mainComposite.getSwtCheckdone().getSelection();
+                    } catch (NumberFormatException ignore) {
                         MessageDialog.openInformation(Display.getCurrent().getActiveShell(), "Incoorect input",
                                 "Your input was incorrect. Please, put the correct data");
+                    }
+                    if (Utils.isValidData(name, group)) {
+                        Person selectionPerson = tableViewerAdapter.getCurrentPerson();
+                        if (tableViewerAdapter.getCurrentPerson() == null) {
+                            MessageDialog.openInformation(Display.getCurrent().getActiveShell(), "Information",
+                                    "Please, choose a row for saving data");
+                        } else {
+                            for (Person availablePerson : ModelProvider.INSTANCE.getPersons()) {
+                                if (selectionPerson.equals(availablePerson)) {
+                                    Utils.updatePersonData(availablePerson, name, group, swtDone);
+                                    tableViewerAdapter.getViewer().refresh();
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -138,14 +138,11 @@ public class UserManagerApp extends ApplicationWindow {
 
         mainComposite.getResetButton().addListener(SWT.Selection, new Listener() {
             public void handleEvent(Event e) {
-                switch (e.type) {
-                case SWT.Selection: {
+                if (e.type == SWT.Selection) {
                     if (getTableViewerAdapter().getCurrentPerson() != null) {
                         Utils.removeChangesPersonData(mainComposite, tableViewerAdapter.getCurrentPerson());
                         tableViewerAdapter.getViewer().refresh();
                     }
-                }
-                    break;
                 }
             }
         });
@@ -153,8 +150,9 @@ public class UserManagerApp extends ApplicationWindow {
         getShell().pack();
         return parent;
     }
+
     /**
-     *  Creates a menu with attachments
+     * Creates a menu with attachments
      */
     protected MenuManager createMenuManager() {
         MenuManager mainMenu = new MenuManager();
@@ -174,15 +172,16 @@ public class UserManagerApp extends ApplicationWindow {
 
         return mainMenu;
     }
+
     /**
-     *  When window will be closed - all data will be rewrite on the disk
+     * When window will be closed - all data will be rewrite on the disk
      */
     @Override
     public boolean close() {
         try {
             FileWriter tfw = new FileWriter(new File(Utils.FILE_PATH).getAbsoluteFile());
             BufferedWriter tbw = new BufferedWriter(tfw);
-            
+
             for (Person person : ModelProvider.INSTANCE.getPersons()) {
                 tbw.write(person.getName() + "," + person.getGroup() + "," + person.isSwtDone());
                 tbw.newLine();
@@ -195,20 +194,27 @@ public class UserManagerApp extends ApplicationWindow {
         }
         return super.close();
     }
+
     /**
      * 
-     * @return  tableviewer
+     * returns current object of TableViewerAdapter class
+     * 
+     * @return tableviewer of current object
      */
     public TableViewerAdapter getTableViewerAdapter() {
         return tableViewerAdapter;
     }
+
     /**
      * 
-     * @return mainComposite
+     * returns current object of MainComposite class
+     * 
+     * @return mainComposite of current object
      */
     public MainComposite getMainComposite() {
         return mainComposite;
     }
+
     /**
      * starts this app
      *

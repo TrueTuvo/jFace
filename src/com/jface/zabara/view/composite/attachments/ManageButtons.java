@@ -13,23 +13,13 @@ import org.eclipse.swt.widgets.Composite;
  */
 public class ManageButtons extends Composite {
 
-    private final Button newPersonButton, savePersonButton, deletePersonButton, resetPersonButton;
+    private final Button newPersonButton;
 
-    public Button getNewPersonButton() {
-        return newPersonButton;
-    }
+    private final Button savePersonButton;
 
-    public Button getSavePersonButton() {
-        return savePersonButton;
-    }
+    private final Button deletePersonButton;
 
-    public Button getDeletePersonButton() {
-        return deletePersonButton;
-    }
-
-    public Button getResetPersonButton() {
-        return resetPersonButton;
-    }
+    private final Button resetPersonButton;
 
     public ManageButtons(Composite parent, int style) {
         super(parent, style);
@@ -45,5 +35,41 @@ public class ManageButtons extends Composite {
 
         resetPersonButton = new Button(this, SWT.PUSH);
         resetPersonButton.setText("Reset");
+    }
+
+    /**
+     * returns newPersonButton of this object
+     * 
+     * @return newPersonButton
+     */
+    public Button getNewPersonButton() {
+        return newPersonButton;
+    }
+
+    /**
+     * returns savePersonButton of this object
+     * 
+     * @return savePersonButton
+     */
+    public Button getSavePersonButton() {
+        return savePersonButton;
+    }
+
+    /**
+     * returns deletePersonButton of this object
+     * 
+     * @return deletePersonButton
+     */
+    public Button getDeletePersonButton() {
+        return deletePersonButton;
+    }
+
+    /**
+     * returns resetPersonButton of this object
+     * 
+     * @return resetPersonButton
+     */
+    public Button getResetPersonButton() {
+        return resetPersonButton;
     }
 }

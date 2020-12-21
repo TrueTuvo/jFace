@@ -16,12 +16,16 @@ import com.jface.zabara.view.composite.attachments.SWTDoneCheckLine;
 
 /**
  * 
- * @author SZabara {@summary Every time, when user try to add new person, must fill empty fields confirm action in
- *         dialog window}
+ * Every time, when user try to add new person, must fill empty fields confirm action in dialog window
+ * 
+ * @author SZabara
  */
 public class CreateNewPersonDialog extends Dialog {
+
     private TableViewerAdapter myTableViewer;
+
     private InputFields inputFields;
+
     private SWTDoneCheckLine swtDoneCheckLine;
 
     public CreateNewPersonDialog(TableViewerAdapter tableViewer) {
@@ -31,7 +35,7 @@ public class CreateNewPersonDialog extends Dialog {
 
     @Override
     protected Control createDialogArea(Composite parent) {
-       
+
         Composite container = (Composite) super.createDialogArea(parent);
         inputFields = new InputFields(container, SWT.NONE);
         swtDoneCheckLine = new SWTDoneCheckLine(container, SWT.NONE);
@@ -39,8 +43,6 @@ public class CreateNewPersonDialog extends Dialog {
         return container;
     }
 
-    // overriding this methods allows you to set the
-    // title of the custom dialog
     @Override
     protected void configureShell(Shell newShell) {
         super.configureShell(newShell);
@@ -49,23 +51,28 @@ public class CreateNewPersonDialog extends Dialog {
 
     @Override
     protected void okPressed() {
-           try {
-               String name = inputFields.getNameTextField().getText();
-               int group = Integer.parseInt(inputFields.getGroupTextField().getText());
-               boolean swtDone = swtDoneCheckLine.getSwtDoneButton().getSelection();
-               if (Utils.isValidData(name, group)) {               
-                   Person person = new Person(name, group, swtDone);
-                   myTableViewer.add(person);
-                   super.okPressed();
-                   
-               }
-               else {
-                throw new NumberFormatException();
-            }
+
+        String name = null;
+
+        int group = 0;
+
+        boolean swtDone = false;
+
+        try {
+            name = inputFields.getNameTextField().getText();
+            group = Integer.parseInt(inputFields.getGroupTextField().getText());
+            swtDone = swtDoneCheckLine.getSwtDoneButton().getSelection();
         } catch (NumberFormatException e) {
-            MessageDialog.openInformation(Display.getCurrent().getActiveShell(), "Incoorect input", "Your input was empty. Please, put the correct data");
+            MessageDialog.openInformation(Display.getCurrent().getActiveShell(), "Incorrect input",
+                    "Your input was empty. Please, put the correct data");
         }
-               
+
+        if (Utils.isValidData(name, group)) {
+            Person person = new Person(name, group, swtDone);
+            myTableViewer.add(person);
+            super.okPressed();
+
+        }
     }
 
     @Override

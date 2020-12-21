@@ -5,7 +5,15 @@ import org.eclipse.jface.action.Action;
 import com.jface.zabara.app.UserManagerApp;
 import com.jface.zabara.view.CreateNewPersonDialog;
 
+/**
+ * 
+ * This class creates a button in a Edit menu.
+ * 
+ * @author SZabara
+ *
+ */
 public class CreateNewPersonAction extends Action {
+
     private UserManagerApp app;
 
     public CreateNewPersonAction(UserManagerApp app) {
@@ -13,6 +21,10 @@ public class CreateNewPersonAction extends Action {
         this.app = app;
     }
 
+    /**
+     * 
+     * When you press this button - shell with input fields will be open.
+     */
     public void run() {
         new CreateNewPersonDialog(app.getTableViewerAdapter()).open();
     }

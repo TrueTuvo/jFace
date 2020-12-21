@@ -9,11 +9,21 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
+/**
+ * Element of the Help menu
+ * 
+ * @author SZabara
+ *
+ */
 public class AboutAction extends Action {
     public AboutAction() {
         super("About", AS_PUSH_BUTTON);
     }
 
+    /**
+     * When you press this button, shell with information about Application will be open
+     * 
+     */
     public void run() {
         Display display = Display.getCurrent();
         Shell shell = new Shell(display);

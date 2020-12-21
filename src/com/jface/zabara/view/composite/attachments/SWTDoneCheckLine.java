@@ -7,11 +7,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 
 /**
- * Part of MainComposite. Responsible for show  SWTDone flag
+ * Part of MainComposite. Responsible for show SWTDone flag
  * 
  * @author SZabara
  * 
- *
  */
 public class SWTDoneCheckLine extends Composite {
 
@@ -25,7 +24,12 @@ public class SWTDoneCheckLine extends Composite {
         swtDoneLabel.setText("SWT task Done");
         swtDoneButton.setOrientation(SWT.RIGHT_TO_LEFT);
     }
-    
+
+    /**
+     * returns swtDoneButton of this object
+     * 
+     * @return swtDoneButton
+     */
     public Button getSwtDoneButton() {
         return swtDoneButton;
     }

@@ -12,7 +12,9 @@ import com.jface.zabara.app.Utils;
 
 /**
  * 
- * @author SZabara model provider basis on two things: the list of persons and text file
+ * The model provider basis on two things: the list of persons and text file
+ * 
+ * @author SZabara
  */
 public enum ModelProvider {
     INSTANCE;
@@ -41,19 +43,24 @@ public enum ModelProvider {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 
             while (br.ready()) {
-               
+
                 String text = br.readLine();
                 if (!text.equals("")) {
-                    String parts[] = text.split(",");
-                    Person person = new Person(parts[0], Integer.parseInt(parts[1]), Boolean.parseBoolean(parts[2]));
-                    persons.add(person);
-                }   
+                    String[] parts = text.split(",");
+                    try {
+                        Person person = new Person(parts[0], Integer.parseInt(parts[1]),
+                                Boolean.parseBoolean(parts[2]));
+                        persons.add(person);
+                    } catch (Exception e) {
+                        System.out.println("Cant parse line to person correctly: " + text);
+                    }
+                }
             }
         } catch (FileNotFoundException exception) {
             System.err.println("Could not find the DATABASE file");
         } catch (IOException e) {
             System.err.println("Could not read the DATABASE file");
-        } 
+        }
         return persons;
     }
 }

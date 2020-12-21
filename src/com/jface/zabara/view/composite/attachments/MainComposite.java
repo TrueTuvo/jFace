@@ -9,15 +9,27 @@ import org.eclipse.swt.widgets.Text;
 
 /**
  * 
- * Consist of the three composites : InputFields, ButtonLine and SWTButtonCheckLine, provides access
- *         to the important elements
- * @author SZabara
+ * Consist of the three composites : InputFields, ButtonLine and SWTButtonCheckLine, provides access to the important
+ * elements
  * 
+ * @author SZabara
  * 
  */
 public class MainComposite extends Composite {
-    private final Text nameTextField, groupTextField;
-    private final Button swtCheckdone, newButton, saveButton, deleteButton, resetButton;
+
+    private final Text nameTextField;
+
+    private final Text groupTextField;
+
+    private final Button swtCheckdone;
+
+    private final Button newButton;
+
+    private final Button saveButton;
+
+    private final Button deleteButton;
+
+    private final Button resetButton;
 
     public MainComposite(Composite parent, int style) {
         super(parent, style);
@@ -41,31 +53,66 @@ public class MainComposite extends Composite {
         deleteButton = buttonLine.getDeletePersonButton();
         resetButton = buttonLine.getResetPersonButton();
     }
-    
+
+    /**
+     * returns nameTextField of this object
+     * 
+     * @return nameTextField
+     */
     public Text getNameTextField() {
         return nameTextField;
     }
 
+    /**
+     * returns groupTextField of this object
+     * 
+     * @return groupTextField
+     */
     public Text getGroupTextField() {
         return groupTextField;
     }
 
+    /**
+     * returns swtCheckdone of this object
+     * 
+     * @return swtCheckdone
+     */
     public Button getSwtCheckdone() {
         return swtCheckdone;
     }
 
+    /**
+     * returns newButton of this object
+     * 
+     * @return newButton
+     */
     public Button getNewButton() {
         return newButton;
     }
 
+    /**
+     * returns saveButton of this object
+     * 
+     * @return saveButton
+     */
     public Button getSaveButton() {
         return saveButton;
     }
 
+    /**
+     * returns deleteButton of this object
+     * 
+     * @return deleteButton
+     */
     public Button getDeleteButton() {
         return deleteButton;
     }
 
+    /**
+     * returns resetButton of this object
+     * 
+     * @return resetButton
+     */
     public Button getResetButton() {
         return resetButton;
     }

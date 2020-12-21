@@ -2,25 +2,29 @@ package com.jface.zabara.app;
 
 import com.jface.zabara.model.Person;
 import com.jface.zabara.view.composite.attachments.MainComposite;
+
 /**
- *  Using for simplification routine operation. consist of static methods and constants.
+ * Using for simplification routine operation. consist of static methods and constants.
+ * 
  * @author SZabara
  *
  */
 public class Utils {
-    
+
     /**
-     *  Object of this class we won't create
+     * Object of this class we won't create
      */
     private Utils() {
         super();
     }
 
     public static final String FILE_PATH = "database.txt";
+
     /**
-     * Writes person to fields of the right side
+     * Writes person's data to fields of the right side
+     * 
      * @param mainComposite right side
-     * @param selectionPerson  selected Person
+     * @param selectionPerson selected Person
      */
     public static void putPersonData(MainComposite mainComposite, Person selectionPerson) {
         if (selectionPerson != null && !mainComposite.getDeleteButton().getSelection()) {
@@ -29,6 +33,7 @@ public class Utils {
             mainComposite.getSwtCheckdone().setSelection(selectionPerson.isSwtDone());
         }
     }
+
     /**
      * Clear all fields in the right side
      */
@@ -37,8 +42,10 @@ public class Utils {
         mainComposite.getGroupTextField().setText("");
         mainComposite.getSwtCheckdone().setSelection(false);
     }
+
     /**
      * Discards changes which did without save in the composite.
+     * 
      * @param mainComposite composite with changes
      * @param currentPerson person with data that without changes
      */
@@ -47,8 +54,10 @@ public class Utils {
         mainComposite.getGroupTextField().setText(String.valueOf(currentPerson.getGroup()));
         mainComposite.getSwtCheckdone().setSelection(currentPerson.isSwtDone());
     }
+
     /**
      * Updates person`s data
+     * 
      * @param availablePerson person that must be changed.
      * @param name new name for person
      * @param group new gruop's number for person
@@ -57,26 +66,31 @@ public class Utils {
     public static void updatePersonData(Person availablePerson, String name, int group, boolean swtDone) {
         availablePerson.setName(name);
         availablePerson.setGroup(group);
-        availablePerson.setSwtDone(swtDone);;
+        availablePerson.setSwtDone(swtDone);
+        ;
     }
-    
+
     /**
+     * 
+     * Validates Person object
      * 
      * @param name can not be empty or equals null
      * @param group can not equals zero
-     * @return if all conditions was kept, return true 
+     * @return if all conditions was kept, return true
      */
     public static boolean isValidData(String name, int group) {
-        
-        if (name == null || name.equals("") || group <= 0 || group > 99) {           
+
+        if (name == null || name.equals("") || group <= 0 || group > 99) {
             return false;
         }
         return true;
     }
+
     /**
      * Validates name by lenght
-     * @param str
-     * @return
+     * 
+     * @param str String for validate
+     * @return validation result
      */
     public static boolean isName(String str) {
 

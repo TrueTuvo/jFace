@@ -14,7 +14,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.TableItem;
 
 /**
- * Emulates a native checkbox in a column label provider which is also centered on screen. This should also work well,
+ * Emulates a native check box in a column label provider which is also centered on screen. This should also work well,
  * in case the field is editable.
  * 
  *
@@ -29,6 +29,7 @@ public abstract class CheckBoxLabelProvider extends OwnerDrawLabelProvider {
     private Image image;
 
     /**
+     * Puts to Image register 2 shots
      * 
      * @param viewer need for getting current shell, that will be use for make shot
      */
@@ -41,6 +42,8 @@ public abstract class CheckBoxLabelProvider extends OwnerDrawLabelProvider {
     }
 
     /**
+     * 
+     * Creates one image
      * 
      * @param shell need for create new window only with one check button
      * @param type need for definition checked/unchecked state
@@ -93,6 +96,12 @@ public abstract class CheckBoxLabelProvider extends OwnerDrawLabelProvider {
         }
     }
 
+    /**
+     * The method was add for override, when new object was created.
+     * 
+     * @param element
+     * @return
+     */
     protected abstract boolean isChecked(Object element);
 
     @Override
